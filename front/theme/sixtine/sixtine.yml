@@ -1,0 +1,3 @@
+stylesheets:
+    - variables.scss
+    - global.scss
