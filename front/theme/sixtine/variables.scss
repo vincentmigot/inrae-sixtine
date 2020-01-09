@@ -16,9 +16,11 @@ $highlightBackgroundColorDark: #303633;
     --highlightBackgroundColorDark: #{$defaultColorDark};
     --linkColor: #{$defaultColorDark};
     --linkHighlightColor: #{$highlightColorDark};
+    --linkReverseColor: #{$defaultColorLight};
+    --linkReverseHighlightColor: #{$highlightColorLight};
 }
 
-// pass variables into a sass map
+// pass variables into a sass map, leave empty command at end of lines to prevent bad formating
 $variables: ( //
 --defaultColorLight: var(--defaultColorLight), //
 --defaultColorDark: var(--defaultColorDark), //
@@ -28,7 +30,10 @@ $variables: ( //
 --highlightBackgroundColorLight: var(--highlightBackgroundColorLight), //
 --highlightBackgroundColorDark: var(--highlightBackgroundColorDark), //
 --linkColor: var(--linkColor), //
---linkHighlightColor: var(--linkHighlightColor) //
+--linkHighlightColor: var(--linkHighlightColor), //
+--backgroundColor: var(--defaultColorLight), //
+--linkReverseColor: var(--linkReverseColor), //
+--linkReverseHighlightColor: var(--linkReverseHighlightColor) //
 );
 // Function to get sass variable by name
 @function getVar($variable) {
