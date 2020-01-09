@@ -57,10 +57,11 @@ export default class SixtineMenuComponent extends DefaultMenuComponent {
   }
 
   handleResize() {
-    if (document.body.clientWidth <= 600 && (this.width == null || this.width > 600)) {
+    const minSize = 480;
+    if (document.body.clientWidth <= minSize && (this.width == null || this.width > minSize)) {
       this.width = document.body.clientWidth;
       this.$store.commit("hideMenu");
-    } else if (document.body.clientWidth > 600 && (this.width == null || this.width <= 600)) {
+    } else if (document.body.clientWidth > minSize && (this.width == null || this.width <= minSize)) {
       this.width = document.body.clientWidth;
       this.$store.commit("showMenu");
     }
