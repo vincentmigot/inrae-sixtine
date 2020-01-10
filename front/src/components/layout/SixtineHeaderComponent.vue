@@ -31,7 +31,7 @@ export default class SixtineHeaderComponent extends DefaultHeaderComponent {}
   background-color: var(--highlightBackgroundColorLight);
   color: var(--defaultColorDark);
   padding: 0px 70px;
-  padding-right: 15px;
+  padding-right: 30px;
   text-align: center;
   font-size: 35px;
   display: flex;
@@ -66,7 +66,7 @@ export default class SixtineHeaderComponent extends DefaultHeaderComponent {}
   display: inline-block;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 480px) {
   .app-logout > a > span {
     display: none;
   }
