@@ -65,6 +65,12 @@ a:active {
     }
 }
 
+.page-wrap {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
 .table thead th {
     vertical-align: middle;
 }
