@@ -42,11 +42,6 @@
 
 <script lang="ts">
 import { Component } from "vue-property-decorator";
-import Vue from "vue";
-import { SecurityService, TokenGetDTO } from "opensilex-rest/index";
-import HttpResponse, { OpenSilexResponse } from "opensilex-rest/HttpResponse";
-import OpenSilexVuePlugin from "../../../../../opensilex-front/front/src/models/OpenSilexVuePlugin";
-import { User } from "../../../../../opensilex-front/front/src/models/User";
 import DefaultLoginComponent from "../../../../../opensilex-front/front/src/components/layout/DefaultLoginComponent.vue";
 
 @Component

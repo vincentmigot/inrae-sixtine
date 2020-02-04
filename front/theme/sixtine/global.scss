@@ -37,7 +37,7 @@ main {
     flex: 1;
 }
 
-.form-group[required="required"] label:after {
+.form-group[required="required"] > label:after {
     color: getVar(--errorColor);
     content: "*";
     margin-left: 3px;
