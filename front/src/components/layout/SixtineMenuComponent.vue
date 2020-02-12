@@ -123,7 +123,7 @@ nav > .nav-item > span {
   -webkit-user-select: none;
   user-select: none;
   background: getVar(--highlightBackgroundColorLight);
-  height: 55px;
+  height: 54px;
   width: 70px;
 }
 

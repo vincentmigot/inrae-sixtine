@@ -3,38 +3,35 @@
     <b-form @submit.prevent="onLogin" class="fullmodal-form">
       <div class="login-header">
         <img v-bind:src="$opensilex.getResourceURI('images/logo-sixtine.png')" />
-        <h2>Système d'Information pour les Unités Expérimentales d'INRAE</h2>
+        <h2>{{$t('sixtine.title')}}</h2>
       </div>
 
       <div class="login-form-content">
-      <p>
-        Merci de saisir vos identifiants pour vous connecter à l'application:
-      </p>
+        <p>{{$t('sixtine.login.info')}}:</p>
+        <b-form-group id="login-group" required>
+          <b-form-input
+            id="email"
+            type="email"
+            v-model="form.email"
+            required
+            :placeholder="$t('component.login.input.email')"
+          ></b-form-input>
+          <i class="ik ik-user"></i>
+        </b-form-group>
 
-      <b-form-group id="login-group" required>
-        <b-form-input
-          id="email"
-          type="email"
-          v-model="form.email"
-          required
-          :placeholder="$t('component.login.input.email')"
-        ></b-form-input>
-        <i class="ik ik-user"></i>
-      </b-form-group>
-
-      <b-form-group id="password-group" required>
-        <b-form-input
-          id="password"
-          type="password"
-          v-model="form.password"
-          required
-          :placeholder="$t('component.login.input.password')"
-        ></b-form-input>
-        <i class="ik ik-lock"></i>
-      </b-form-group>
-      <div class="sign-btn text-center">
-        <b-button type="submit" variant="primary" v-text="$t('component.login.button.login')"></b-button>
-      </div>
+        <b-form-group id="password-group" required>
+          <b-form-input
+            id="password"
+            type="password"
+            v-model="form.password"
+            required
+            :placeholder="$t('component.login.input.password')"
+          ></b-form-input>
+          <i class="ik ik-lock"></i>
+        </b-form-group>
+        <div class="sign-btn text-center">
+          <b-button type="submit" variant="primary" v-text="$t('component.login.button.login')"></b-button>
+        </div>
       </div>
     </b-form>
   </div>

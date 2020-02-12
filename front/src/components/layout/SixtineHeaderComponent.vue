@@ -8,7 +8,7 @@
     </div>
     <div class="app-logout">
       <a href="#" @click.prevent="logout()">
-        <span>Déconnexion</span>&nbsp;
+        <span>{{$t('component.common.logout')}}</span>&nbsp;
         <font-awesome-icon icon="power-off" size="lg" />
       </a>
     </div>

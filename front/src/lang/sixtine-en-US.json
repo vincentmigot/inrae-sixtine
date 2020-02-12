@@ -1,0 +1,9 @@
+{
+    "sixtine": {
+        "welcome-message": "Welcome to Sixtine",
+        "title": "Information System for INRAE experimental units",
+        "login": {
+            "info": "Please enter your identifiers to login"
+        }
+    }
+}

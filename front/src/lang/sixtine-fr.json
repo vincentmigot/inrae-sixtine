@@ -1,0 +1,9 @@
+{
+    "sixtine": {
+        "welcome-message": "Bienvenue dans Sixtine",
+        "title": "Système d'Information pour les Unités Expérimentales d'INRAE",
+        "login": {
+            "info": "Merci de saisir vos identifiants pour vous connecter à l'application"
+        }
+    }
+}
