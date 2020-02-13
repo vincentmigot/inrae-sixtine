@@ -75,7 +75,7 @@ sixtine:build:
   script:
     - cd $CI_PROJECT_DIR/.. 
     - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "https://forgemia.inra.fr/api/v4/projects/1675/jobs/artifacts/master/download?job=opensilex:build"'
-    - ls
+    - unzip artifacts.zip
     - mvn install $MAVEN_CLI_OPTS -Drevision=$REVISION
     - mv $CI_PROJECT_DIR/opensilex-dev/$BUILD_PATH-$REVISION ../$REVISION
   artifacts:
