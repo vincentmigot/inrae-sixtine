@@ -73,7 +73,8 @@ variables:
 sixtine:build:
   <<: *build_template_with_opensilex
   script:
-    - wget https://gitlab-ci-token:${CI_JOB_TOKEN}@forgemia.inra.fr/OpenSILEX/opensilex-dev-/jobs/artifacts/master/browse?job=opensilex:build
+    - wget https://gitlab-ci-token:${CI_JOB_TOKEN}@forgemia.inra.fr/OpenSILEX/opensilex-dev-/jobs/artifacts/master/browse?job=opensilex:build artifacts.zip
+    - unzip artifacts.zip
     - mvn install $MAVEN_CLI_OPTS -Drevision=$REVISION
     - mv $CI_PROJECT_DIR/opensilex-dev/$BUILD_PATH-$REVISION ../$REVISION
   artifacts:
