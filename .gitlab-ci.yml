@@ -62,6 +62,7 @@ variables:
     - rm -rf $REVISION
     - unzip -o artifacts.zip
     - ls $REVISION
+    - pwd
     - mkdir -p $CI_PROJECT_DIR/.m2/repository/org/opensilex
     - ls $REVISION/opensilex-parent/
     - mvn install:install-file -Dfile=$REVISION/opensilex-parent/$REVISION/opensilex-parent-$REVISION.pom -DpomFile=$REVISION/opensilex/$REVISION/opensilex-parent-$REVISION.pom
