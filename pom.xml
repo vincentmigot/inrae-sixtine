@@ -18,6 +18,10 @@
     <packaging>jar</packaging>
     <name>inrae-sixtine</name>
 
+    <properties>
+        <revision>BUILD-SNAPSHOT</revision>
+    </properties>
+    
     <parent>
         <groupId>org.opensilex</groupId>
         <artifactId>opensilex-module</artifactId>
