@@ -57,12 +57,12 @@ variables:
 .build:instance: &build_template_with_opensilex
   # <<: *cache_dependencies
   before_script:
+    - apt-get install tree
     - cd $CI_PROJECT_DIR/.. 
     - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "https://forgemia.inra.fr/api/v4/projects/1675/jobs/artifacts/master/download?job=opensilex:build"'
     - rm -rf $REVISION
     - unzip -o artifacts.zip
     - mkdir -p $CI_PROJECT_DIR/.m2/repository/org/opensilex
-    - mkdir $CI_PROJECT_DIR/wtf
     - cd $REVISION
     # install opensilex-parent
     - mvn install:install-file "-Dfile=./opensilex-parent/$REVISION/opensilex-parent-$REVISION.pom" "-DpomFile=./opensilex-parent/$REVISION/opensilex-parent-$REVISION.pom"
@@ -94,9 +94,6 @@ variables:
     - cd $CI_PROJECT_DIR/../opensilex-dev
     - git init
     - git pull https://gitlab-ci-token:${CI_JOB_TOKEN}@forgemia.inra.fr/OpenSILEX/opensilex-dev.git
-    - cd $CI_PROJECT_DIR/..
-    - ls $CI_PROJECT_DIR
-    - ls $CI_PROJECT_DIR/..
     - cp -rf $CI_PROJECT_DIR/../opensilex-dev/* $CI_PROJECT_DIR/..
     - cd $CI_PROJECT_DIR
   stage: build
@@ -117,6 +114,10 @@ variables:
 sixtine:build:
   <<: *build_template_with_opensilex
   script:
+    - ls /builds/OpenSILEX/
+    - ls $CI_PROJECT_DIR/../.node
+    - pwd
+    - tree $CI_PROJECT_DIR
     - mvn install $MAVEN_CLI_OPTS -Drevision=$REVISION
     - mv $CI_PROJECT_DIR/inrae-sixtine/target/inrae-sixtine-$REVISION.jar ../$REVISION/inrae-sixtine.jar
   artifacts:
