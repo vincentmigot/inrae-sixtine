@@ -67,6 +67,7 @@ variables:
                mvn org.apache.maven.plugins:maven-install-plugin:2.5.2:install-file -Dfile=$file
             fi
         done
+    - cd $CI_PROJECT_DIR
   stage: build
   image: maven:$MVN_VERSION-jdk-$JAVA_VERSION
   except:
