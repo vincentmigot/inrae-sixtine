@@ -96,6 +96,8 @@ variables:
     - git init
     - git pull https://gitlab-ci-token:${CI_JOB_TOKEN}@forgemia.inra.fr/OpenSILEX/opensilex-dev.git
     - cp -rf $CI_PROJECT_DIR/../opensilex-dev/* $CI_PROJECT_DIR/..
+    - cd $CI_PROJECT_DIR/../opensilex
+    - mvn initialize
     - cd $CI_PROJECT_DIR
   stage: build
   image: maven:$MVN_VERSION-jdk-$JAVA_VERSION
@@ -116,7 +118,7 @@ sixtine:build:
   <<: *build_template_with_opensilex
   script:
     - pwd
-    - tree $CI_PROJECT_DIR/..
+    # - tree $CI_PROJECT_DIR/..
     - mvn install $MAVEN_CLI_OPTS -Drevision=$REVISION
     - mv $CI_PROJECT_DIR/inrae-sixtine/target/inrae-sixtine-$REVISION.jar ../$REVISION/inrae-sixtine.jar
   artifacts:
