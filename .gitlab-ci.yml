@@ -76,8 +76,10 @@ variables:
     - cd $CI_PROJECT_DIR/opensilex-dev
     - git init
     - git pull https://gitlab-ci-token:${CI_JOB_TOKEN}@forgemia.inra.fr/OpenSILEX/opensilex-dev.git
-    - cd $CI_PROJECT_DIR
-    - mv $CI_PROJECT_DIR/opensilex-dev/* $CI_PROJECT_DIR
+    - cd $CI_PROJECT_DIR/..
+    - ls $CI_PROJECT_DIR
+    - ls $CI_PROJECT_DIR/..
+    - mv $CI_PROJECT_DIR/opensilex-dev/* $CI_PROJECT_DIR/..
     - cd $CI_PROJECT_DIR
   stage: build
   image: maven:$MVN_VERSION-jdk-$JAVA_VERSION
