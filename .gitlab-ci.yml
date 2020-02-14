@@ -115,10 +115,8 @@ variables:
 sixtine:build:
   <<: *build_template_with_opensilex
   script:
-    - ls /builds/OpenSILEX/
-    - ls $CI_PROJECT_DIR/../.node
     - pwd
-    - tree $CI_PROJECT_DIR
+    - tree $CI_PROJECT_DIR/..
     - mvn install $MAVEN_CLI_OPTS -Drevision=$REVISION
     - mv $CI_PROJECT_DIR/inrae-sixtine/target/inrae-sixtine-$REVISION.jar ../$REVISION/inrae-sixtine.jar
   artifacts:
