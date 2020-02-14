@@ -79,8 +79,9 @@ variables:
     - cp $REVISION/opensilex-parent/$REVISION/opensilex-parent-$REVISION.pom $CI_PROJECT_DIR/../opensilex-parent/pom.xml
     - mkdir -p $CI_PROJECT_DIR/../opensilex-module
     - cp $REVISION/opensilex-module/$REVISION/opensilex-module-$REVISION.pom $CI_PROJECT_DIR/../opensilex-module/pom.xml
-    - mvn dependency:get -Dartifact=org.opensilex:opensilex-module:INSTANCE-SNAPSHOT:pom -DrepoUrl=file://$CI_PROJECT_DIR/.m2
-    - ls $CI_PROJECT_DIR/.m2/repository/org/opensilex
+    - ls $CI_PROJECT_DIR/../opensilex-module/pom.xml
+    - ls $CI_PROJECT_DIR/../opensilex-parent/pom.xml
+    - ls
     - cd $CI_PROJECT_DIR
   stage: build
   image: maven:$MVN_VERSION-jdk-$JAVA_VERSION
