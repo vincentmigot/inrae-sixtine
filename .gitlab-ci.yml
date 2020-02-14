@@ -47,6 +47,7 @@ variables:
       - $NODE_MODULE_REST_CACHE
       - $NODE_CACHE
       - $NODE_MODULE_PHIS_CACHE
+      - $NODE_MODULE_SIXTINE_CACHE
       - $EMBDED_MONGO_CACHE
 
 ########################
@@ -55,6 +56,17 @@ variables:
 
 .build:instance: &build_template_with_opensilex
   <<: *cache_dependencies
+  before_script:
+    - cd $CI_PROJECT_DIR/.. 
+    - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "https://forgemia.inra.fr/api/v4/projects/1675/jobs/artifacts/master/download?job=opensilex:build"'
+    - unzip -o artifacts.zip
+    - |
+        for file in $REVISION/*
+        do
+            if [[ -f $file ]]; then
+               mvn org.apache.maven.plugins:maven-install-plugin:2.5.2:install-file -Dfile=$file
+            fi
+        done
   stage: build
   image: maven:$MVN_VERSION-jdk-$JAVA_VERSION
   except:
@@ -73,17 +85,6 @@ variables:
 sixtine:build:
   <<: *build_template_with_opensilex
   script:
-    - cd $CI_PROJECT_DIR/.. 
-    - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "https://forgemia.inra.fr/api/v4/projects/1675/jobs/artifacts/master/download?job=opensilex:build"'
-    - unzip -o artifacts.zip
-    - |
-        for file in $REVISION/*
-        do
-            if [[ -f $file ]]; then
-               mvn org.apache.maven.plugins:maven-install-plugin:2.5.2:install-file -Dfile=$file
-            fi
-        done
-    - cd $CI_PROJECT_DIR/
     - mvn install $MAVEN_CLI_OPTS -Drevision=$REVISION
     - mv $CI_PROJECT_DIR/opensilex-dev/$BUILD_PATH-$REVISION ../$REVISION
   artifacts:
