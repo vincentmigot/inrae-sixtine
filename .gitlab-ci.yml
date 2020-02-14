@@ -79,8 +79,6 @@ variables:
     #- cp $REVISION/opensilex-parent/$REVISION/opensilex-parent-$REVISION.pom $CI_PROJECT_DIR/opensilex-parent/pom.xml
     #- mkdir -p $CI_PROJECT_DIR/opensilex-module
     #- cp $REVISION/opensilex-module/$REVISION/opensilex-module-$REVISION.pom $CI_PROJECT_DIR/opensilex-module/pom.xml
-    - ls $CI_PROJECT_DIR/opensilex-module/
-    - ls $CI_PROJECT_DIR/opensilex-parent/
     - cd $CI_PROJECT_DIR
   stage: build
   image: maven:$MVN_VERSION-jdk-$JAVA_VERSION
