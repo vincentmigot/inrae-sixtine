@@ -75,13 +75,12 @@ variables:
     - mvn install:install-file -Dfile=$REVISION/opensilex-core/$REVISION/opensilex-core-$REVISION.jar -DpomFile=$REVISION/opensilex-core/$REVISION/opensilex-core-$REVISION.pom
     - mvn install:install-file -Dfile=$REVISION/opensilex-front/$REVISION/opensilex-front-$REVISION.jar -DpomFile=$REVISION/opensilex-front/$REVISION/opensilex-front-$REVISION.pom
     - mvn install:install-file -Dfile=$REVISION/opensilex-module/$REVISION/opensilex-module-$REVISION.pom -DpomFile=$REVISION/opensilex-module/$REVISION/opensilex-module-$REVISION.pom
-    - mkdir -p $CI_PROJECT_DIR/opensilex-parent
-    - cp $REVISION/opensilex-parent/$REVISION/opensilex-parent-$REVISION.pom $CI_PROJECT_DIR/opensilex-parent/pom.xml
-    - mkdir -p $CI_PROJECT_DIR/opensilex-module
-    - cp $REVISION/opensilex-module/$REVISION/opensilex-module-$REVISION.pom $CI_PROJECT_DIR/opensilex-module/pom.xml
+    #- mkdir -p $CI_PROJECT_DIR/opensilex-parent
+    #- cp $REVISION/opensilex-parent/$REVISION/opensilex-parent-$REVISION.pom $CI_PROJECT_DIR/opensilex-parent/pom.xml
+    #- mkdir -p $CI_PROJECT_DIR/opensilex-module
+    #- cp $REVISION/opensilex-module/$REVISION/opensilex-module-$REVISION.pom $CI_PROJECT_DIR/opensilex-module/pom.xml
     - ls $CI_PROJECT_DIR/opensilex-module/
     - ls $CI_PROJECT_DIR/opensilex-parent/
-    - ls
     - cd $CI_PROJECT_DIR
   stage: build
   image: maven:$MVN_VERSION-jdk-$JAVA_VERSION
@@ -101,10 +100,7 @@ variables:
 sixtine:build:
   <<: *build_template_with_opensilex
   script:
-    - pwd
-    - ls
-    - ls ../opensilex-module/
-    - echo mvn install $MAVEN_CLI_OPTS -Drevision=$REVISION
+    - mvn versions:update-parent -DparentVersion=INSTANCE-SNAPSHOT
     - mvn install $MAVEN_CLI_OPTS -Drevision=INSTANCE-SNAPSHOT
     - mv $CI_PROJECT_DIR/opensilex-dev/$BUILD_PATH-$REVISION ../$REVISION
   artifacts:
