@@ -64,7 +64,7 @@ variables:
     - ls $REVISION
     - mkdir -p $CI_PROJECT_DIR/.m2/repository/org/opensilex
     - ls $REVISION/opensilex-parent/
-    - mvn install:install-file -DpomFile=$REVISION/opensilex-parent/$REVISION/opensilex-parent-$REVISION.pom
+    - mvn install:install-file -Dfile=$REVISION/opensilex-parent/$REVISION/opensilex-parent-$REVISION.pom
     - mvn install:install-file -Dfile=$REVISION/opensilex/$REVISION/opensilex-$REVISION.jar -DpomFile=$REVISION/opensilex/$REVISION/opensilex-$REVISION.pom
     - mvn install:install-file -Dfile=$REVISION/opensilex-sparql/$REVISION/opensilex-sparql-$REVISION.jar -DpomFile=$REVISION/opensilex/$REVISION/opensilex-sparql-$REVISION.pom
     - mvn install:install-file -Dfile=$REVISION/opensilex-nosql/$REVISION/opensilex-nosql-$REVISION.jar -DpomFile=$REVISION/opensilex/$REVISION/opensilex-nosql-$REVISION.pom
