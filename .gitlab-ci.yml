@@ -17,16 +17,16 @@ variables:
  REVISION: 'INSTANCE-SNAPSHOT'
  # This will supress any download for dependencies and plugins or upload messages which would clutter the console log.
  # `showDateTime` will show the passed time in milliseconds. You need to specify `--batch-mode` to make this work.
- MAVEN_CACHE_FOLDER: "$CI_PROJECT_DIR/.m2/repository"
+ MAVEN_CACHE_FOLDER: "$CI_PROJECT_DIR/../.m2/repository"
  MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
- YARN_CACHE_FOLDER: "$CI_PROJECT_DIR/cache_yarn"
- NODE_MODULE_DEV_CACHE: "$CI_PROJECT_DIR/node_modules"
- NODE_MODULE_FRONT_CACHE: "$CI_PROJECT_DIR/opensilex-front/front/node_modules"
- NODE_MODULE_CORE_CACHE: "$CI_PROJECT_DIR/opensilex-core/front/node_modules"
- NODE_MODULE_REST_CACHE: "$CI_PROJECT_DIR/opensilex-rest/front/node_modules"
- NODE_MODULE_PHIS_CACHE: "$CI_PROJECT_DIR/phis-ws/front/node_modules"
- NODE_MODULE_SIXTINE_CACHE: "$CI_PROJECT_DIR/inrae-sixtine/front/node_modules"
- NODE_CACHE: "$CI_PROJECT_DIR/.node"
+ YARN_CACHE_FOLDER: "$CI_PROJECT_DIR/../cache_yarn"
+ NODE_MODULE_DEV_CACHE: "$CI_PROJECT_DIR/../node_modules"
+ NODE_MODULE_FRONT_CACHE: "$CI_PROJECT_DIR/../opensilex-front/front/node_modules"
+ NODE_MODULE_CORE_CACHE: "$CI_PROJECT_DIR/../opensilex-core/front/node_modules"
+ NODE_MODULE_REST_CACHE: "$CI_PROJECT_DIR/../opensilex-rest/front/node_modules"
+ NODE_MODULE_PHIS_CACHE: "$CI_PROJECT_DIR/../phis-ws/front/node_modules"
+ NODE_MODULE_SIXTINE_CACHE: "$CI_PROJECT_DIR/front/node_modules"
+ NODE_CACHE: "$CI_PROJECT_DIR/../.node"
  EMBDED_MONGO_CACHE: "/root/.embedmongo/"
 
 ########################
@@ -63,17 +63,33 @@ variables:
     - unzip -o artifacts.zip
     - mkdir -p $CI_PROJECT_DIR/.m2/repository/org/opensilex
     - mkdir $CI_PROJECT_DIR/wtf
-    - cd $CI_PROJECT_DIR/wtf
-    - mvn install:install-file "-Dfile=$CI_PROJECT_DIR/../$REVISION/opensilex-parent/$REVISION/opensilex-parent-$REVISION.pom" "-DpomFile=$CI_PROJECT_DIR/../$REVISION/opensilex-parent/$REVISION/opensilex-parent-$REVISION.pom"
-    - mvn install:install-file "-Dfile=$CI_PROJECT_DIR/../$REVISION/opensilex/$REVISION/opensilex-$REVISION.jar" "-DpomFile=$CI_PROJECT_DIR/../$REVISION/opensilex/$REVISION/opensilex-$REVISION.pom"
-    - mvn install:install-file "-Dfile=$CI_PROJECT_DIR/../$REVISION/opensilex-sparql/$REVISION/opensilex-sparql-$REVISION.jar" "-DpomFile=$CI_PROJECT_DIR/../$REVISION/opensilex-sparql/$REVISION/opensilex-sparql-$REVISION.pom"
-    - mvn install:install-file "-Dfile=$CI_PROJECT_DIR/../$REVISION/opensilex-nosql/$REVISION/opensilex-nosql-$REVISION.jar" "-DpomFile=$CI_PROJECT_DIR/../$REVISION/opensilex-nosql/$REVISION/opensilex-nosql-$REVISION.pom"
-    - mvn install:install-file "-Dfile=$CI_PROJECT_DIR/../$REVISION/opensilex-fs/$REVISION/opensilex-fs-$REVISION.jar" "-DpomFile=$CI_PROJECT_DIR/../$REVISION/opensilex-fs/$REVISION/opensilex-fs-$REVISION.pom"
-    - mvn install:install-file "-Dfile=$CI_PROJECT_DIR/../$REVISION/opensilex-swagger-codegen-maven-plugin/$REVISION/opensilex-swagger-codegen-maven-plugin-$REVISION.jar" "-DpomFile=$CI_PROJECT_DIR/../$REVISION/opensilex-swagger-codegen-maven-plugin/$REVISION/opensilex-swagger-codegen-maven-plugin-$REVISION.pom"
-    - mvn install:install-file "-Dfile=$CI_PROJECT_DIR/../$REVISION/opensilex-rest/$REVISION/opensilex-rest-$REVISION.jar" "-DpomFile=$CI_PROJECT_DIR/../$REVISION/opensilex-rest/$REVISION/opensilex-rest-$REVISION.pom"
-    - mvn install:install-file "-Dfile=$CI_PROJECT_DIR/../$REVISION/opensilex-core/$REVISION/opensilex-core-$REVISION.jar" "-DpomFile=$CI_PROJECT_DIR/../$REVISION/opensilex-core/$REVISION/opensilex-core-$REVISION.pom"
-    - mvn install:install-file "-Dfile=$CI_PROJECT_DIR/../$REVISION/opensilex-front/$REVISION/opensilex-front-$REVISION.jar" "-DpomFile=$CI_PROJECT_DIR/../$REVISION/opensilex-front/$REVISION/opensilex-front-$REVISION.pom"
-    - mvn install:install-file "-Dfile=$CI_PROJECT_DIR/../$REVISION/opensilex-module/$REVISION/opensilex-module-$REVISION.pom" "-DpomFile=$CI_PROJECT_DIR/../$REVISION/opensilex-module/$REVISION/opensilex-module-$REVISION.pom"
+    - cd $REVISION
+    # install opensilex-parent
+    - mvn install:install-file "-Dfile=./opensilex-parent/$REVISION/opensilex-parent-$REVISION.pom" "-DpomFile=./opensilex-parent/$REVISION/opensilex-parent-$REVISION.pom"
+    # install opensilex & tests
+    - mvn install:install-file "-Dfile=./opensilex/$REVISION/opensilex-$REVISION.jar" "-DpomFile=./opensilex/$REVISION/opensilex-$REVISION.pom"
+    - mvn install:install-file "-Dfile=./opensilex/$REVISION/opensilex-$REVISION-tests.jar" "-DpomFile=./opensilex/$REVISION/opensilex-$REVISION.pom" "-Dclassifier=tests"
+    # install sparql & tests
+    - mvn install:install-file "-Dfile=./opensilex-sparql/$REVISION/opensilex-sparql-$REVISION.jar" "-DpomFile=./opensilex-sparql/$REVISION/opensilex-sparql-$REVISION.pom"
+    - mvn install:install-file "-Dfile=./opensilex-sparql/$REVISION/opensilex-sparql-$REVISION-tests.jar" "-DpomFile=./opensilex-sparql/$REVISION/opensilex-sparql-$REVISION.pom" "-Dclassifier=tests"
+    # install nosql & tests
+    - mvn install:install-file "-Dfile=./opensilex-nosql/$REVISION/opensilex-nosql-$REVISION.jar" "-DpomFile=./opensilex-nosql/$REVISION/opensilex-nosql-$REVISION.pom"
+    - mvn install:install-file "-Dfile=./opensilex-nosql/$REVISION/opensilex-nosql-$REVISION-tests.jar" "-DpomFile=./opensilex-nosql/$REVISION/opensilex-nosql-$REVISION.pom" "-Dclassifier=tests"
+    # install fs & tests
+    - mvn install:install-file "-Dfile=./opensilex-fs/$REVISION/opensilex-fs-$REVISION.jar" "-DpomFile=./opensilex-fs/$REVISION/opensilex-fs-$REVISION.pom"
+    - mvn install:install-file "-Dfile=./opensilex-fs/$REVISION/opensilex-fs-$REVISION-tests.jar" "-DpomFile=./opensilex-fs/$REVISION/opensilex-fs-$REVISION.pom" "-Dclassifier=tests"
+    # install swagger-codegen
+    - mvn install:install-file "-Dfile=./opensilex-swagger-codegen-maven-plugin/$REVISION/opensilex-swagger-codegen-maven-plugin-$REVISION.jar" "-DpomFile=./opensilex-swagger-codegen-maven-plugin/$REVISION/opensilex-swagger-codegen-maven-plugin-$REVISION.pom"
+    # install rest & tests
+    - mvn install:install-file "-Dfile=./opensilex-rest/$REVISION/opensilex-rest-$REVISION.jar" "-DpomFile=./opensilex-rest/$REVISION/opensilex-rest-$REVISION.pom"
+    - mvn install:install-file "-Dfile=./opensilex-rest/$REVISION/opensilex-rest-$REVISION-tests.jar" "-DpomFile=./opensilex-rest/$REVISION/opensilex-rest-$REVISION.pom" "-Dclassifier=tests"
+    # install core
+    - mvn install:install-file "-Dfile=./opensilex-core/$REVISION/opensilex-core-$REVISION.jar" "-DpomFile=./opensilex-core/$REVISION/opensilex-core-$REVISION.pom"
+    # install front & tests
+    - mvn install:install-file "-Dfile=./opensilex-front/$REVISION/opensilex-front-$REVISION.jar" "-DpomFile=./opensilex-front/$REVISION/opensilex-front-$REVISION.pom"
+    - mvn install:install-file "-Dfile=./opensilex-front/$REVISION/opensilex-front-$REVISION-tests.jar" "-DpomFile=./opensilex-front/$REVISION/opensilex-front-$REVISION.pom" "-Dclassifier=tests"
+    # install module pom 
+    - mvn install:install-file "-Dfile=./opensilex-module/$REVISION/opensilex-module-$REVISION.pom" "-DpomFile=./opensilex-module/$REVISION/opensilex-module-$REVISION.pom"
     - mkdir -p $CI_PROJECT_DIR/../opensilex-dev
     - cd $CI_PROJECT_DIR/../opensilex-dev
     - git init
