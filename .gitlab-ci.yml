@@ -103,7 +103,11 @@ variables:
     - cp -rf $CI_PROJECT_DIR/../opensilex-dev/* $CI_PROJECT_DIR/..
     - cd $CI_PROJECT_DIR/..
     # Initialize sources (install node modules && generate ts lib) for opensilex-dev
-    - mvn process-classes
+    - mvn generate-sources
+    - cd opensilex-rest
+    - mvn frontend:yarn@build-typescript-definition
+    - cd ../opensilex-core
+    - mvn frontend:yarn@build-typescript-definition
   stage: build
   image: maven:$MVN_VERSION-jdk-$JAVA_VERSION
   except:
