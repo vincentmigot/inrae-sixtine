@@ -75,7 +75,7 @@ variables:
     - mvn install:install-file -Dfile=$REVISION/opensilex-core/$REVISION/opensilex-core-$REVISION.jar -DpomFile=$REVISION/opensilex-core/$REVISION/opensilex-core-$REVISION.pom
     - mvn install:install-file -Dfile=$REVISION/opensilex-front/$REVISION/opensilex-front-$REVISION.jar -DpomFile=$REVISION/opensilex-front/$REVISION/opensilex-front-$REVISION.pom
     - mvn install:install-file -Dfile=$REVISION/opensilex-module/$REVISION/opensilex-module-$REVISION.pom -DpomFile=$REVISION/opensilex-module/$REVISION/opensilex-module-$REVISION.pom
-    - mvn dependency:get -Dartifact=org.opensilex:opensilex-parent:INSTANCE-SNAPSHOT
+    - mvn dependency:get -Dartifact=org.opensilex:opensilex-parent:INSTANCE-SNAPSHOT:pom -o -DrepoUrl=file://$CI_PROJECT_DIR/.m2
     - ls $CI_PROJECT_DIR/.m2/repository/org/opensilex
     - cd $CI_PROJECT_DIR
   stage: build
