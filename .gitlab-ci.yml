@@ -58,6 +58,7 @@ variables:
   # <<: *cache_dependencies
   before_script:
     - cd $CI_PROJECT_DIR/.. 
+    - rm -rf *
     - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "https://forgemia.inra.fr/api/v4/projects/1675/jobs/artifacts/master/download?job=opensilex:build"'
     - rm -rf $REVISION
     - unzip -o artifacts.zip
