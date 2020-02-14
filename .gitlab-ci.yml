@@ -68,37 +68,37 @@ variables:
     - mvn install:install-file "-Dfile=./opensilex-parent/$REVISION/opensilex-parent-$REVISION.pom" "-DpomFile=./opensilex-parent/$REVISION/opensilex-parent-$REVISION.pom"
     # install opensilex & tests
     - mvn install:install-file "-Dfile=./opensilex/$REVISION/opensilex-$REVISION.jar" "-DpomFile=./opensilex/$REVISION/opensilex-$REVISION.pom"
-    - mvn install:install-file "-Dfile=./opensilex/$REVISION/opensilex-$REVISION-tests.jar" "-DpomFile=./opensilex/$REVISION/opensilex-$REVISION.pom" "-Dclassifier=tests"
+    - mvn install:install-file "-Dfile=./opensilex/$REVISION/opensilex-$REVISION-tests.jar" "-DpomFile=./opensilex/$REVISION/opensilex-$REVISION.pom" "-Dclassifier=tests" "-Dversion=$REVISION"
     # install sparql & tests
     - mvn install:install-file "-Dfile=./opensilex-sparql/$REVISION/opensilex-sparql-$REVISION.jar" "-DpomFile=./opensilex-sparql/$REVISION/opensilex-sparql-$REVISION.pom"
-    - mvn install:install-file "-Dfile=./opensilex-sparql/$REVISION/opensilex-sparql-$REVISION-tests.jar" "-DpomFile=./opensilex-sparql/$REVISION/opensilex-sparql-$REVISION.pom" "-Dclassifier=tests"
+    - mvn install:install-file "-Dfile=./opensilex-sparql/$REVISION/opensilex-sparql-$REVISION-tests.jar" "-DpomFile=./opensilex-sparql/$REVISION/opensilex-sparql-$REVISION.pom" "-Dclassifier=tests" "-Dversion=$REVISION"
     # install nosql & tests
     - mvn install:install-file "-Dfile=./opensilex-nosql/$REVISION/opensilex-nosql-$REVISION.jar" "-DpomFile=./opensilex-nosql/$REVISION/opensilex-nosql-$REVISION.pom"
-    - mvn install:install-file "-Dfile=./opensilex-nosql/$REVISION/opensilex-nosql-$REVISION-tests.jar" "-DpomFile=./opensilex-nosql/$REVISION/opensilex-nosql-$REVISION.pom" "-Dclassifier=tests"
+    - mvn install:install-file "-Dfile=./opensilex-nosql/$REVISION/opensilex-nosql-$REVISION-tests.jar" "-DpomFile=./opensilex-nosql/$REVISION/opensilex-nosql-$REVISION.pom" "-Dclassifier=tests" "-Dversion=$REVISION"
     # install fs & tests
     - mvn install:install-file "-Dfile=./opensilex-fs/$REVISION/opensilex-fs-$REVISION.jar" "-DpomFile=./opensilex-fs/$REVISION/opensilex-fs-$REVISION.pom"
-    - mvn install:install-file "-Dfile=./opensilex-fs/$REVISION/opensilex-fs-$REVISION-tests.jar" "-DpomFile=./opensilex-fs/$REVISION/opensilex-fs-$REVISION.pom" "-Dclassifier=tests"
+    - mvn install:install-file "-Dfile=./opensilex-fs/$REVISION/opensilex-fs-$REVISION-tests.jar" "-DpomFile=./opensilex-fs/$REVISION/opensilex-fs-$REVISION.pom" "-Dclassifier=tests" "-Dversion=$REVISION"
     # install swagger-codegen
     - mvn install:install-file "-Dfile=./opensilex-swagger-codegen-maven-plugin/$REVISION/opensilex-swagger-codegen-maven-plugin-$REVISION.jar" "-DpomFile=./opensilex-swagger-codegen-maven-plugin/$REVISION/opensilex-swagger-codegen-maven-plugin-$REVISION.pom"
     # install rest & tests
     - mvn install:install-file "-Dfile=./opensilex-rest/$REVISION/opensilex-rest-$REVISION.jar" "-DpomFile=./opensilex-rest/$REVISION/opensilex-rest-$REVISION.pom"
-    - mvn install:install-file "-Dfile=./opensilex-rest/$REVISION/opensilex-rest-$REVISION-tests.jar" "-DpomFile=./opensilex-rest/$REVISION/opensilex-rest-$REVISION.pom" "-Dclassifier=tests"
+    - mvn install:install-file "-Dfile=./opensilex-rest/$REVISION/opensilex-rest-$REVISION-tests.jar" "-DpomFile=./opensilex-rest/$REVISION/opensilex-rest-$REVISION.pom" "-Dclassifier=tests" "-Dversion=$REVISION"
     # install core
     - mvn install:install-file "-Dfile=./opensilex-core/$REVISION/opensilex-core-$REVISION.jar" "-DpomFile=./opensilex-core/$REVISION/opensilex-core-$REVISION.pom"
     # install front & tests
     - mvn install:install-file "-Dfile=./opensilex-front/$REVISION/opensilex-front-$REVISION.jar" "-DpomFile=./opensilex-front/$REVISION/opensilex-front-$REVISION.pom"
-    - mvn install:install-file "-Dfile=./opensilex-front/$REVISION/opensilex-front-$REVISION-tests.jar" "-DpomFile=./opensilex-front/$REVISION/opensilex-front-$REVISION.pom" "-Dclassifier=tests"
+    - mvn install:install-file "-Dfile=./opensilex-front/$REVISION/opensilex-front-$REVISION-tests.jar" "-DpomFile=./opensilex-front/$REVISION/opensilex-front-$REVISION.pom" "-Dclassifier=tests" "-Dversion=$REVISION"
     # install module pom 
     - mvn install:install-file "-Dfile=./opensilex-module/$REVISION/opensilex-module-$REVISION.pom" "-DpomFile=./opensilex-module/$REVISION/opensilex-module-$REVISION.pom"
     # clone original opensilex-dev sources
     - mkdir -p $CI_PROJECT_DIR/../opensilex-dev
     - cd $CI_PROJECT_DIR/../opensilex-dev
     - git init
-    # TODO: ensure to load same commit as used to generate artifact
+    # TODO: ensure to load same commit as used to generate opensilex-dev artifact
     - git pull https://gitlab-ci-token:${CI_JOB_TOKEN}@forgemia.inra.fr/OpenSILEX/opensilex-dev.git
     - cd phis-ws
     - git init
-    # TODO: ensure to load same commit as used to generate artifact
+    # TODO: ensure to load same commit as used to generate phisws artifact
     - git pull https://gitlab-ci-token:${CI_JOB_TOKEN}@forgemia.inra.fr/OpenSILEX/phis-ws.git modularity
     - cp -rf $CI_PROJECT_DIR/../opensilex-dev/* $CI_PROJECT_DIR/..
     - cd $CI_PROJECT_DIR/..
