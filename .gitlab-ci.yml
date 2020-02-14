@@ -55,9 +55,9 @@ variables:
 ########################
 
 .build:instance: &build_template_with_opensilex
-  # <<: *cache_dependencies
+  <<: *cache_dependencies
   before_script:
-    # downlaod builded artifacts from opensilex-dev
+    # download built artifacts from opensilex-dev
     - cd $CI_PROJECT_DIR/.. 
     - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "https://forgemia.inra.fr/api/v4/projects/1675/jobs/artifacts/master/download?job=opensilex:build"'
     - rm -rf $REVISION
@@ -94,14 +94,16 @@ variables:
     - mkdir -p $CI_PROJECT_DIR/../opensilex-dev
     - cd $CI_PROJECT_DIR/../opensilex-dev
     - git init
+    # TODO: ensure to load same commit as used to generate artifact
     - git pull https://gitlab-ci-token:${CI_JOB_TOKEN}@forgemia.inra.fr/OpenSILEX/opensilex-dev.git
     - cd phis-ws
     - git init
+    # TODO: ensure to load same commit as used to generate artifact
     - git pull https://gitlab-ci-token:${CI_JOB_TOKEN}@forgemia.inra.fr/OpenSILEX/phis-ws.git modularity
     - cp -rf $CI_PROJECT_DIR/../opensilex-dev/* $CI_PROJECT_DIR/..
     - cd $CI_PROJECT_DIR/..
-    # Initialize sources (install node modules) for opensilex-dev
-    - mvn generate-sources
+    # Initialize sources (install node modules && generate ts lib) for opensilex-dev
+    - mvn process-classes
   stage: build
   image: maven:$MVN_VERSION-jdk-$JAVA_VERSION
   except:
