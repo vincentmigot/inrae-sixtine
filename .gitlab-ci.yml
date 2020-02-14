@@ -101,6 +101,9 @@ variables:
 sixtine:build:
   <<: *build_template_with_opensilex
   script:
+    - pwd
+    - ls
+    - ls ../opensilex-module/
     - echo mvn install $MAVEN_CLI_OPTS -Drevision=$REVISION
     - mvn install $MAVEN_CLI_OPTS -Drevision=INSTANCE-SNAPSHOT
     - mv $CI_PROJECT_DIR/opensilex-dev/$BUILD_PATH-$REVISION ../$REVISION
