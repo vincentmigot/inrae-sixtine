@@ -64,16 +64,16 @@ variables:
     - mkdir -p $CI_PROJECT_DIR/.m2/repository/org/opensilex
     - mkdir $CI_PROJECT_DIR/wtf
     - cd $CI_PROJECT_DIR/wtf
-    - mvn install:install-file "-Dfile=$REVISION/opensilex-parent/$REVISION/opensilex-parent-$REVISION.pom" "-DpomFile=$REVISION/opensilex-parent/$REVISION/opensilex-parent-$REVISION.pom"
-    - mvn install:install-file "-Dfile=$REVISION/opensilex/$REVISION/opensilex-$REVISION.jar" "-DpomFile=$REVISION/opensilex/$REVISION/opensilex-$REVISION.pom"
-    - mvn install:install-file "-Dfile=$REVISION/opensilex-sparql/$REVISION/opensilex-sparql-$REVISION.jar" "-DpomFile=$REVISION/opensilex-sparql/$REVISION/opensilex-sparql-$REVISION.pom"
-    - mvn install:install-file "-Dfile=$REVISION/opensilex-nosql/$REVISION/opensilex-nosql-$REVISION.jar" "-DpomFile=$REVISION/opensilex-nosql/$REVISION/opensilex-nosql-$REVISION.pom"
-    - mvn install:install-file "-Dfile=$REVISION/opensilex-fs/$REVISION/opensilex-fs-$REVISION.jar" "-DpomFile=$REVISION/opensilex-fs/$REVISION/opensilex-fs-$REVISION.pom"
-    - mvn install:install-file "-Dfile=$REVISION/opensilex-swagger-codegen-maven-plugin/$REVISION/opensilex-swagger-codegen-maven-plugin-$REVISION.jar" "-DpomFile=$REVISION/opensilex-swagger-codegen-maven-plugin/$REVISION/opensilex-swagger-codegen-maven-plugin-$REVISION.pom"
-    - mvn install:install-file "-Dfile=$REVISION/opensilex-rest/$REVISION/opensilex-rest-$REVISION.jar" "-DpomFile=$REVISION/opensilex-rest/$REVISION/opensilex-rest-$REVISION.pom"
-    - mvn install:install-file "-Dfile=$REVISION/opensilex-core/$REVISION/opensilex-core-$REVISION.jar" "-DpomFile=$REVISION/opensilex-core/$REVISION/opensilex-core-$REVISION.pom"
-    - mvn install:install-file "-Dfile=$REVISION/opensilex-front/$REVISION/opensilex-front-$REVISION.jar" "-DpomFile=$REVISION/opensilex-front/$REVISION/opensilex-front-$REVISION.pom"
-    - mvn install:install-file "-Dfile=$REVISION/opensilex-module/$REVISION/opensilex-module-$REVISION.pom" "-DpomFile=$REVISION/opensilex-module/$REVISION/opensilex-module-$REVISION.pom"
+    - mvn install:install-file "-Dfile=$CI_PROJECT_DIR/$REVISION/opensilex-parent/$REVISION/opensilex-parent-$REVISION.pom" "-DpomFile=$CI_PROJECT_DIR/$REVISION/opensilex-parent/$REVISION/opensilex-parent-$REVISION.pom"
+    - mvn install:install-file "-Dfile=$CI_PROJECT_DIR/$REVISION/opensilex/$REVISION/opensilex-$REVISION.jar" "-DpomFile=$CI_PROJECT_DIR/$REVISION/opensilex/$REVISION/opensilex-$REVISION.pom"
+    - mvn install:install-file "-Dfile=$CI_PROJECT_DIR/$REVISION/opensilex-sparql/$REVISION/opensilex-sparql-$REVISION.jar" "-DpomFile=$CI_PROJECT_DIR/$REVISION/opensilex-sparql/$REVISION/opensilex-sparql-$REVISION.pom"
+    - mvn install:install-file "-Dfile=$CI_PROJECT_DIR/$REVISION/opensilex-nosql/$REVISION/opensilex-nosql-$REVISION.jar" "-DpomFile=$CI_PROJECT_DIR/$REVISION/opensilex-nosql/$REVISION/opensilex-nosql-$REVISION.pom"
+    - mvn install:install-file "-Dfile=$CI_PROJECT_DIR/$REVISION/opensilex-fs/$REVISION/opensilex-fs-$REVISION.jar" "-DpomFile=$CI_PROJECT_DIR/$REVISION/opensilex-fs/$REVISION/opensilex-fs-$REVISION.pom"
+    - mvn install:install-file "-Dfile=$CI_PROJECT_DIR/$REVISION/opensilex-swagger-codegen-maven-plugin/$REVISION/opensilex-swagger-codegen-maven-plugin-$REVISION.jar" "-DpomFile=$CI_PROJECT_DIR/$REVISION/opensilex-swagger-codegen-maven-plugin/$REVISION/opensilex-swagger-codegen-maven-plugin-$REVISION.pom"
+    - mvn install:install-file "-Dfile=$CI_PROJECT_DIR/$REVISION/opensilex-rest/$REVISION/opensilex-rest-$REVISION.jar" "-DpomFile=$CI_PROJECT_DIR/$REVISION/opensilex-rest/$REVISION/opensilex-rest-$REVISION.pom"
+    - mvn install:install-file "-Dfile=$CI_PROJECT_DIR/$REVISION/opensilex-core/$REVISION/opensilex-core-$REVISION.jar" "-DpomFile=$CI_PROJECT_DIR/$REVISION/opensilex-core/$REVISION/opensilex-core-$REVISION.pom"
+    - mvn install:install-file "-Dfile=$CI_PROJECT_DIR/$REVISION/opensilex-front/$REVISION/opensilex-front-$REVISION.jar" "-DpomFile=$CI_PROJECT_DIR/$REVISION/opensilex-front/$REVISION/opensilex-front-$REVISION.pom"
+    - mvn install:install-file "-Dfile=$CI_PROJECT_DIR/$REVISION/opensilex-module/$REVISION/opensilex-module-$REVISION.pom" "-DpomFile=$CI_PROJECT_DIR/$REVISION/opensilex-module/$REVISION/opensilex-module-$REVISION.pom"
     - mkdir -p $CI_PROJECT_DIR/../opensilex-dev
     - cd $CI_PROJECT_DIR/../opensilex-dev
     - git init
