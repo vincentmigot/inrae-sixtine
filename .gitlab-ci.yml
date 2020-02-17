@@ -59,6 +59,7 @@ variables:
   before_script:
     # download built artifacts from opensilex-dev
     - apt update && apt install tree
+    - rm -rf $CI_PROJECT_DIR/../opensilex*
     - cd $CI_PROJECT_DIR/.. 
     - rm -rf $REVISION
     - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "https://forgemia.inra.fr/api/v4/projects/1675/jobs/artifacts/master/download?job=opensilex:build"'
@@ -120,10 +121,11 @@ sixtine:build:
   <<: *build_template_with_opensilex
   script:
     - cd $CI_PROJECT_DIR/..
-    - tree -L 2
+    - tree $CI_PROJECT_DIR/../opensilex-dev -L 2
     - mkdir -p $CI_PROJECT_DIR/../opensilex-dev/inrae-sixtine
+    - tree $CI_PROJECT_DIR/../opensilex-dev -L 2
     - ls $CI_PROJECT_DIR/../opensilex-dev/inrae-sixtine
-    - mv $CI_PROJECT_DIR $CI_PROJECT_DIR/../opensilex-dev/inrae-sixtine
+    - mv $CI_PROJECT_DIR/* $CI_PROJECT_DIR/../opensilex-dev/inrae-sixtine
     - ls $CI_PROJECT_DIR/../opensilex-dev/inrae-sixtine
     - cd $CI_PROJECT_DIR/../opensilex-dev/inrae-sixtine
     - mvn install $MAVEN_CLI_OPTS -Drevision=$REVISION
