@@ -57,7 +57,12 @@ variables:
 .build:instance: &build_template_with_opensilex
   <<: *cache_dependencies
   before_script:
-    - rm -rf $CI_PROJECT_DIR/..
+    - cd $CI_PROJECT_DIR/.. 
+    - rm -rf $REVISION
+    - rm -rf tmp
+    - mkdir -p tmp
+    - mv $CI_PROJECT_DIR/* $CI_PROJECT_DIR/../tmp
+    
     # download built artifacts from opensilex-dev
     - cd $CI_PROJECT_DIR/.. 
     - rm -rf $REVISION
@@ -66,9 +71,7 @@ variables:
     - cd $REVISION
     
     # clone original opensilex-dev sources
-    - rm -rf $CI_PROJECT_DIR/../opensilex-dev
-    - mkdir -p $CI_PROJECT_DIR/../opensilex-dev
-    - cd $CI_PROJECT_DIR/../
+    - cd $CI_PROJECT_DIR
     - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@forgemia.inra.fr/OpenSILEX/opensilex-dev.git
     
     # Ensure to load same commit as used to generate opensilex-dev artifact
@@ -83,8 +86,7 @@ variables:
     # TODO: ensure to load same commit as used to generate phisws artifact
     - git pull https://gitlab-ci-token:${CI_JOB_TOKEN}@forgemia.inra.fr/OpenSILEX/phis-ws.git modularity
     - cp -rf $CI_PROJECT_DIR/../opensilex-dev/* $CI_PROJECT_DIR/..
-    - cd $CI_PROJECT_DIR/..
-    # Initialize opensilex-dev sources for module compilation
+    - cd $CI_PROJECT_DIR/opensilex-dev
     - mvn install $MAVEN_CLI_OPTS -Pfor-module -Drevision=$REVISION
   stage: build
   image: maven:$MVN_VERSION-jdk-$JAVA_VERSION
@@ -104,9 +106,9 @@ variables:
 sixtine:build:
   <<: *build_template_with_opensilex
   script:
-    - mkdir -p $CI_PROJECT_DIR/../opensilex-dev/inrae-sixtine
-    - mv $CI_PROJECT_DIR/* $CI_PROJECT_DIR/../opensilex-dev/inrae-sixtine
-    - cd $CI_PROJECT_DIR/../opensilex-dev/inrae-sixtine
+    - mkdir -p $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine
+    - mv $CI_PROJECT_DIR/../tmp/* $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine
+    - cd $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine
     - mvn install $MAVEN_CLI_OPTS -Drevision=$REVISION
     - mv $CI_PROJECT_DIR/inrae-sixtine/target/inrae-sixtine-$REVISION.jar $CI_PROJECT_DIR/../$REVISION/modules/inrae-sixtine.jar
   artifacts:
