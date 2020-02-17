@@ -57,39 +57,6 @@ variables:
 .build:instance: &build_template_with_opensilex
   <<: *cache_dependencies
   before_script:
-    # download built artifacts from opensilex-dev
-    - cd $CI_PROJECT_DIR/.. 
-    - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "https://forgemia.inra.fr/api/v4/projects/1675/jobs/artifacts/master/download?job=opensilex:build"'
-    - rm -rf $REVISION
-    - unzip -o artifacts.zip
-    - mkdir -p $CI_PROJECT_DIR/.m2/repository/org/opensilex
-    - cd $REVISION
-    # install opensilex-parent
-    - mvn install:install-file "-Dfile=./opensilex-parent/$REVISION/opensilex-parent-$REVISION.pom" "-DpomFile=./opensilex-parent/$REVISION/opensilex-parent-$REVISION.pom"
-    # install opensilex & tests
-    - mvn install:install-file "-Dfile=./opensilex/$REVISION/opensilex-$REVISION.jar" "-DpomFile=./opensilex/$REVISION/opensilex-$REVISION.pom"
-    - mvn install:install-file "-Dfile=./opensilex/$REVISION/opensilex-$REVISION-tests.jar" "-DpomFile=./opensilex/$REVISION/opensilex-$REVISION.pom" "-Dclassifier=tests" "-Dversion=$REVISION"
-    # install sparql & tests
-    - mvn install:install-file "-Dfile=./opensilex-sparql/$REVISION/opensilex-sparql-$REVISION.jar" "-DpomFile=./opensilex-sparql/$REVISION/opensilex-sparql-$REVISION.pom"
-    - mvn install:install-file "-Dfile=./opensilex-sparql/$REVISION/opensilex-sparql-$REVISION-tests.jar" "-DpomFile=./opensilex-sparql/$REVISION/opensilex-sparql-$REVISION.pom" "-Dclassifier=tests" "-Dversion=$REVISION"
-    # install nosql & tests
-    - mvn install:install-file "-Dfile=./opensilex-nosql/$REVISION/opensilex-nosql-$REVISION.jar" "-DpomFile=./opensilex-nosql/$REVISION/opensilex-nosql-$REVISION.pom"
-    - mvn install:install-file "-Dfile=./opensilex-nosql/$REVISION/opensilex-nosql-$REVISION-tests.jar" "-DpomFile=./opensilex-nosql/$REVISION/opensilex-nosql-$REVISION.pom" "-Dclassifier=tests" "-Dversion=$REVISION"
-    # install fs & tests
-    - mvn install:install-file "-Dfile=./opensilex-fs/$REVISION/opensilex-fs-$REVISION.jar" "-DpomFile=./opensilex-fs/$REVISION/opensilex-fs-$REVISION.pom"
-    - mvn install:install-file "-Dfile=./opensilex-fs/$REVISION/opensilex-fs-$REVISION-tests.jar" "-DpomFile=./opensilex-fs/$REVISION/opensilex-fs-$REVISION.pom" "-Dclassifier=tests" "-Dversion=$REVISION"
-    # install swagger-codegen
-    - mvn install:install-file "-Dfile=./opensilex-swagger-codegen-maven-plugin/$REVISION/opensilex-swagger-codegen-maven-plugin-$REVISION.jar" "-DpomFile=./opensilex-swagger-codegen-maven-plugin/$REVISION/opensilex-swagger-codegen-maven-plugin-$REVISION.pom"
-    # install rest & tests
-    - mvn install:install-file "-Dfile=./opensilex-rest/$REVISION/opensilex-rest-$REVISION.jar" "-DpomFile=./opensilex-rest/$REVISION/opensilex-rest-$REVISION.pom"
-    - mvn install:install-file "-Dfile=./opensilex-rest/$REVISION/opensilex-rest-$REVISION-tests.jar" "-DpomFile=./opensilex-rest/$REVISION/opensilex-rest-$REVISION.pom" "-Dclassifier=tests" "-Dversion=$REVISION"
-    # install core
-    - mvn install:install-file "-Dfile=./opensilex-core/$REVISION/opensilex-core-$REVISION.jar" "-DpomFile=./opensilex-core/$REVISION/opensilex-core-$REVISION.pom"
-    # install front & tests
-    - mvn install:install-file "-Dfile=./opensilex-front/$REVISION/opensilex-front-$REVISION.jar" "-DpomFile=./opensilex-front/$REVISION/opensilex-front-$REVISION.pom"
-    - mvn install:install-file "-Dfile=./opensilex-front/$REVISION/opensilex-front-$REVISION-tests.jar" "-DpomFile=./opensilex-front/$REVISION/opensilex-front-$REVISION.pom" "-Dclassifier=tests" "-Dversion=$REVISION"
-    # install module pom 
-    - mvn install:install-file "-Dfile=./opensilex-module/$REVISION/opensilex-module-$REVISION.pom" "-DpomFile=./opensilex-module/$REVISION/opensilex-module-$REVISION.pom"
     # clone original opensilex-dev sources
     - mkdir -p $CI_PROJECT_DIR/../opensilex-dev
     - cd $CI_PROJECT_DIR/../opensilex-dev
@@ -102,12 +69,31 @@ variables:
     - git pull https://gitlab-ci-token:${CI_JOB_TOKEN}@forgemia.inra.fr/OpenSILEX/phis-ws.git modularity
     - cp -rf $CI_PROJECT_DIR/../opensilex-dev/* $CI_PROJECT_DIR/..
     - cd $CI_PROJECT_DIR/..
-    # Initialize sources (install node modules && generate ts lib) for opensilex-dev
-    - mvn generate-sources
-    - cd opensilex-rest
-    - mvn frontend:yarn@build-typescript-definition
-    - cd ../opensilex-core
-    - mvn frontend:yarn@build-typescript-definition
+    # Initialize opensilex-dev sources for module compilation
+    - mvn install -Pfor-module
+        
+    # download built artifacts from opensilex-dev
+    - cd $CI_PROJECT_DIR/.. 
+    - rm -rf $REVISION
+    - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "https://forgemia.inra.fr/api/v4/projects/1675/jobs/artifacts/master/download?job=opensilex:build"'
+    - unzip -o artifacts.zip
+    - cd $REVISION
+     # install opensilex tests
+    - mvn install:install-file "-Dfile=./opensilex-tests.jar" "-DpomFile=./opensilex-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
+    # install sparql tests
+    - mvn install:install-file "-Dfile=./opensilex-sparql-tests.jar" "-DpomFile=./opensilex-sparql-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
+    # install nosql tests
+    - mvn install:install-file "-Dfile=./opensilex-nosql-tests.jar" "-DpomFile=./opensilex-nosql-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
+    # install fs tests
+    - mvn install:install-file "-Dfile=./opensilex-fs-tests.jar" "-DpomFile=./opensilex-fs-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
+    # install rest tests
+    - mvn install:install-file "-Dfile=./opensilex-rest-tests.jar" "-DpomFile=./opensilex-rest-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
+    # install core tests
+    - mvn install:install-file "-Dfile=./opensilex-core-tests.jar" "-DpomFile=./opensilex-core-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
+    # install front tests
+    - mvn install:install-file "-Dfile=./opensilex-front-tests.jar" "-DpomFile=./opensilex-front-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
+    # install phis tests
+    - mvn install:install-file "-Dfile=./phis-tests.jar" "-DpomFile=./phis-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
   stage: build
   image: maven:$MVN_VERSION-jdk-$JAVA_VERSION
   except:
@@ -128,7 +114,7 @@ sixtine:build:
   script:
     - cd $CI_PROJECT_DIR
     - mvn install $MAVEN_CLI_OPTS -Drevision=$REVISION
-    - mv $CI_PROJECT_DIR/inrae-sixtine/target/inrae-sixtine-$REVISION.jar ../$REVISION/inrae-sixtine.jar
+    - mv $CI_PROJECT_DIR/inrae-sixtine/target/inrae-sixtine-$REVISION.jar $CI_PROJECT_DIR/../$REVISION/modules/inrae-sixtine.jar
   artifacts:
     paths:
-      - $CI_PROJECT_DIR/$REVISION 
+      - $CI_PROJECT_DIR/../$REVISION
