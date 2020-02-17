@@ -82,6 +82,7 @@ variables:
     - mvn install:install-file $MAVEN_CLI_OPTS "-Dfile=./tests/phis-tests.jar" "-DpomFile=./tests/phis-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
     
     # clone original opensilex-dev sources
+    - rm -rf $CI_PROJECT_DIR/../opensilex-dev
     - mkdir -p $CI_PROJECT_DIR/../opensilex-dev
     - cd $CI_PROJECT_DIR/../
     - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@forgemia.inra.fr/OpenSILEX/opensilex-dev.git
