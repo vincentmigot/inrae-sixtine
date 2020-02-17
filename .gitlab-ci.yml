@@ -52,7 +52,7 @@ variables:
     - rm -rf $REVISION
     
     # download latest artifact from opensilex-dev
-    - cd $CI_PROJECT_DIR/.. 
+    - cd $CI_PROJECT_DIR
     - rm -rf $REVISION
     - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "https://forgemia.inra.fr/api/v4/projects/1675/jobs/artifacts/master/download?job=opensilex:build"'
     - unzip -o artifacts.zip
@@ -82,12 +82,6 @@ variables:
   image: maven:$MVN_VERSION-jdk-$JAVA_VERSION
   except:
     - schedules
-  artifacts:
-    expire_in: "3 week"  
-  artifacts:
-    paths:
-      - $CI_PROJECT_DIR/$REVISION
-      
 
 ########################
 ##  SIXTINE BUILD INSTANCE
@@ -96,15 +90,17 @@ variables:
 sixtine:build:
   <<: *build_template_with_opensilex
   script:
+    # Create module folder if not exists
     - mkdir -p $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine
     - cd $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine
+    # Remove everything but node_module folder
     - rm -rf !(node_modules)
     - cd $CI_PROJECT_DIR
 #    - mv $CI_PROJECT_DIR/../tmp/* $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine
-    - mv !(.m2|cache_yarn|opensilex-dev) $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine
+    - mv !(.m2|cache_yarn|opensilex-dev|$REVISION) $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine
     - cd $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine
     - mvn install $MAVEN_CLI_OPTS -Drevision=$REVISION
-    - mv $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine/target/inrae-sixtine-$REVISION.jar $CI_PROJECT_DIR/../$REVISION/modules/inrae-sixtine.jar
+    - mv $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine/target/inrae-sixtine-$REVISION.jar $CI_PROJECT_DIR/$REVISION/modules/inrae-sixtine.jar
   artifacts:
     paths:
-      - $CI_PROJECT_DIR/../$REVISION
+      - $CI_PROJECT_DIR/$REVISION
