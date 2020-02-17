@@ -16,9 +16,9 @@ variables:
  REVISION: 'INSTANCE-SNAPSHOT'
  # This will supress any download for dependencies and plugins or upload messages which would clutter the console log.
  # `showDateTime` will show the passed time in milliseconds. You need to specify `--batch-mode` to make this work.
- MAVEN_CACHE_FOLDER: "$CI_PROJECT_DIR/../.m2/repository"
+ MAVEN_CACHE_FOLDER: "$CI_PROJECT_DIR/.m2/repository"
  MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
- YARN_CACHE_FOLDER: "$CI_PROJECT_DIR/../cache_yarn"
+ YARN_CACHE_FOLDER: "$CI_PROJECT_DIR/cache_yarn"
  NODE_MODULE_DEV_CACHE: "$CI_PROJECT_DIR/opensilex-dev/node_modules"
  NODE_MODULE_FRONT_CACHE: "$CI_PROJECT_DIR/opensilex-dev/opensilex-front/front/node_modules"
  NODE_MODULE_CORE_CACHE: "$CI_PROJECT_DIR/opensilex-dev/opensilex-core/front/node_modules"
@@ -56,11 +56,12 @@ variables:
 .build:instance: &build_template_with_opensilex
   <<: *cache_dependencies
   before_script:
-    - cd $CI_PROJECT_DIR/.. 
+    - cd $CI_PROJECT_DIR/..
     - rm -rf $REVISION
-    - rm -rf tmp
+    - rm -rf tmp 
     - mkdir -p tmp
-    - mv $CI_PROJECT_DIR/* $CI_PROJECT_DIR/../tmp
+    - cd $CI_PROJECT_DIR
+    - mv !($YARN_CACHE_FOLDER|$MAVEN_CACHE_FOLDER) $CI_PROJECT_DIR/../tmp
     
     # download built artifacts from opensilex-dev
     - cd $CI_PROJECT_DIR/.. 
