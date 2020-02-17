@@ -118,6 +118,7 @@ variables:
 sixtine:build:
   <<: *build_template_with_opensilex
   script:
+    - mkdir -p $CI_PROJECT_DIR/../opensilex-dev/inrae-sixtine
     - mv $CI_PROJECT_DIR $CI_PROJECT_DIR/../opensilex-dev/inrae-sixtine
     - cd $CI_PROJECT_DIR/../opensilex-dev/inrae-sixtine
     - mvn install $MAVEN_CLI_OPTS -Drevision=$REVISION
