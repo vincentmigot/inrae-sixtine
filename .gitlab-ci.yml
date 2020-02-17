@@ -44,11 +44,14 @@ variables:
 .build:instance: &build_template_with_opensilex
   <<: *cache_dependencies
   before_script:
+    # enable extended pattern for mv command
     - shopt -s extglob
+
+    # remove old artifact
     - cd $CI_PROJECT_DIR/..
     - rm -rf $REVISION
     
-    # download built artifacts from opensilex-dev
+    # download latest artifact from opensilex-dev
     - cd $CI_PROJECT_DIR/.. 
     - rm -rf $REVISION
     - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "https://forgemia.inra.fr/api/v4/projects/1675/jobs/artifacts/master/download?job=opensilex:build"'
@@ -69,8 +72,9 @@ variables:
     # TODO remove phis dependency
     - cd phis-ws
     - git init
-    # TODO: ensure to load same commit as used to generate phisws artifact
     - git pull https://gitlab-ci-token:${CI_JOB_TOKEN}@forgemia.inra.fr/OpenSILEX/phis-ws.git modularity
+
+    # build opensilex-dev for module compilation
     - cd $CI_PROJECT_DIR/opensilex-dev
     - mvn install $MAVEN_CLI_OPTS -Pfor-module -Drevision=$REVISION
     - cd $CI_PROJECT_DIR
@@ -97,7 +101,7 @@ sixtine:build:
     - rm -rf !(node_modules)
     - cd $CI_PROJECT_DIR
 #    - mv $CI_PROJECT_DIR/../tmp/* $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine
-    - mv !($YARN_CACHE_FOLDER|$MAVEN_CACHE_FOLDER|$OPENSILEX_DEV_CACHE) $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine
+    - mv !(.m2|cache_yarn|opensilex-dev) $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine
     - cd $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine
     - mvn install $MAVEN_CLI_OPTS -Drevision=$REVISION
     - mv $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine/target/inrae-sixtine-$REVISION.jar $CI_PROJECT_DIR/../$REVISION/modules/inrae-sixtine.jar
