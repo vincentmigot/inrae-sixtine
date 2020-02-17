@@ -19,7 +19,7 @@ variables:
  MAVEN_CACHE_FOLDER: "$CI_PROJECT_DIR/.m2/repository"
  MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
  YARN_CACHE_FOLDER: "$CI_PROJECT_DIR/cache_yarn"
- OPENSILEX_DEV_CACHE: "$CI_PROJECT_DIR/opensilex-dev"
+ NODE_CACHE: "$CI_PROJECT_DIR/opensilex-dev/.node"
  EMBDED_MONGO_CACHE: "/root/.embedmongo/"
 
 ########################
@@ -34,7 +34,7 @@ variables:
     paths:
       - $YARN_CACHE_FOLDER
       - $MAVEN_CACHE_FOLDER
-      - $OPENSILEX_DEV_CACHE
+      - $NODE_CACHE
       - $EMBDED_MONGO_CACHE
 
 ########################
@@ -47,10 +47,6 @@ variables:
     # enable extended pattern for mv command
     - shopt -s extglob
 
-    # remove old artifact
-    - cd $CI_PROJECT_DIR/..
-    - rm -rf $REVISION
-    
     # download latest artifact from opensilex-dev
     - cd $CI_PROJECT_DIR
     - rm -rf $REVISION
@@ -76,7 +72,7 @@ variables:
 
     # build opensilex-dev for module compilation
     - cd $CI_PROJECT_DIR/opensilex-dev
-    - mvn install $MAVEN_CLI_OPTS -Pfor-module -Drevision=$REVISION
+    - mvn clean install $MAVEN_CLI_OPTS -Pfor-module -Drevision=$REVISION
     - cd $CI_PROJECT_DIR
   stage: build
   image: maven:$MVN_VERSION-jdk-$JAVA_VERSION
