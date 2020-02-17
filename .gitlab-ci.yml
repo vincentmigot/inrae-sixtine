@@ -58,6 +58,7 @@ variables:
   <<: *cache_dependencies
   before_script:
     # download built artifacts from opensilex-dev
+    - apt update && apt install tree
     - cd $CI_PROJECT_DIR/.. 
     - rm -rf $REVISION
     - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "https://forgemia.inra.fr/api/v4/projects/1675/jobs/artifacts/master/download?job=opensilex:build"'
@@ -118,6 +119,8 @@ variables:
 sixtine:build:
   <<: *build_template_with_opensilex
   script:
+    - cd $CI_PROJECT_DIR/..
+    - tree -L 2
     - mkdir -p $CI_PROJECT_DIR/../opensilex-dev/inrae-sixtine
     - ls $CI_PROJECT_DIR/../opensilex-dev/inrae-sixtine
     - mv $CI_PROJECT_DIR $CI_PROJECT_DIR/../opensilex-dev/inrae-sixtine
