@@ -57,6 +57,7 @@ variables:
 .build:instance: &build_template_with_opensilex
   <<: *cache_dependencies
   before_script:
+    - rm -rf $CI_PROJECT_DIR/..
     # download built artifacts from opensilex-dev
     - cd $CI_PROJECT_DIR/.. 
     - rm -rf $REVISION
