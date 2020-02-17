@@ -58,17 +58,12 @@ variables:
   before_script:
     - cd $CI_PROJECT_DIR/..
     - rm -rf $REVISION
-    - rm -rf tmp 
-    - mkdir -p tmp
-    - cd $CI_PROJECT_DIR
-    - mv !($YARN_CACHE_FOLDER|$MAVEN_CACHE_FOLDER) $CI_PROJECT_DIR/../tmp
     
     # download built artifacts from opensilex-dev
     - cd $CI_PROJECT_DIR/.. 
     - rm -rf $REVISION
     - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "https://forgemia.inra.fr/api/v4/projects/1675/jobs/artifacts/master/download?job=opensilex:build"'
     - unzip -o artifacts.zip
-    - cd $REVISION
     
     # clone original opensilex-dev sources
     - cd $CI_PROJECT_DIR
@@ -87,6 +82,7 @@ variables:
     - git pull https://gitlab-ci-token:${CI_JOB_TOKEN}@forgemia.inra.fr/OpenSILEX/phis-ws.git modularity
     - cd $CI_PROJECT_DIR/opensilex-dev
     - mvn install $MAVEN_CLI_OPTS -Pfor-module -Drevision=$REVISION
+    - ln -s $CI_PROJECT_DIR $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine
   stage: build
   image: maven:$MVN_VERSION-jdk-$JAVA_VERSION
   except:
@@ -105,8 +101,8 @@ variables:
 sixtine:build:
   <<: *build_template_with_opensilex
   script:
-    - mkdir -p $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine
-    - mv $CI_PROJECT_DIR/../tmp/* $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine
+#    - mkdir -p $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine
+#    - mv $CI_PROJECT_DIR/../tmp/* $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine
     - cd $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine
     - mvn install $MAVEN_CLI_OPTS -Drevision=$REVISION
     - mv $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine/target/inrae-sixtine-$REVISION.jar $CI_PROJECT_DIR/../$REVISION/modules/inrae-sixtine.jar
