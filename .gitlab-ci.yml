@@ -65,21 +65,21 @@ variables:
 #    - ls $REVISION/tests
     - cd $REVISION
      # install opensilex tests
-    - mvn install:install-file $MAVEN_CLI_OPTS "-Dfile=./tests/opensilex-tests.jar" "-DpomFile=./tests/opensilex-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
-    # install sparql tests
-    - mvn install:install-file $MAVEN_CLI_OPTS "-Dfile=./tests/opensilex-sparql-tests.jar" "-DpomFile=./tests/opensilex-sparql-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
-    # install nosql tests
-    - mvn install:install-file $MAVEN_CLI_OPTS "-Dfile=./tests/opensilex-nosql-tests.jar" "-DpomFile=./tests/opensilex-nosql-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
-    # install fs tests
-    - mvn install:install-file $MAVEN_CLI_OPTS "-Dfile=./tests/opensilex-fs-tests.jar" "-DpomFile=./tests/opensilex-fs-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
-    # install rest tests
-    - mvn install:install-file $MAVEN_CLI_OPTS "-Dfile=./tests/opensilex-rest-tests.jar" "-DpomFile=./tests/opensilex-rest-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
-    # install core tests
-    - mvn install:install-file $MAVEN_CLI_OPTS "-Dfile=./tests/opensilex-core-tests.jar" "-DpomFile=./tests/opensilex-core-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
-    # install front tests
-    - mvn install:install-file $MAVEN_CLI_OPTS "-Dfile=./tests/opensilex-front-tests.jar" "-DpomFile=./tests/opensilex-front-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
-    # install phis tests
-    - mvn install:install-file $MAVEN_CLI_OPTS "-Dfile=./tests/phis-tests.jar" "-DpomFile=./tests/phis-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
+#    - mvn install:install-file $MAVEN_CLI_OPTS "-Dfile=./tests/opensilex-tests.jar" "-DpomFile=./tests/opensilex-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
+#    # install sparql tests
+#    - mvn install:install-file $MAVEN_CLI_OPTS "-Dfile=./tests/opensilex-sparql-tests.jar" "-DpomFile=./tests/opensilex-sparql-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
+#    # install nosql tests
+#    - mvn install:install-file $MAVEN_CLI_OPTS "-Dfile=./tests/opensilex-nosql-tests.jar" "-DpomFile=./tests/opensilex-nosql-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
+#    # install fs tests
+#    - mvn install:install-file $MAVEN_CLI_OPTS "-Dfile=./tests/opensilex-fs-tests.jar" "-DpomFile=./tests/opensilex-fs-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
+#    # install rest tests
+#    - mvn install:install-file $MAVEN_CLI_OPTS "-Dfile=./tests/opensilex-rest-tests.jar" "-DpomFile=./tests/opensilex-rest-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
+#    # install core tests
+#    - mvn install:install-file $MAVEN_CLI_OPTS "-Dfile=./tests/opensilex-core-tests.jar" "-DpomFile=./tests/opensilex-core-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
+#    # install front tests
+#    - mvn install:install-file $MAVEN_CLI_OPTS "-Dfile=./tests/opensilex-front-tests.jar" "-DpomFile=./tests/opensilex-front-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
+#    # install phis tests
+#    - mvn install:install-file $MAVEN_CLI_OPTS "-Dfile=./tests/phis-tests.jar" "-DpomFile=./tests/phis-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
     
     # clone original opensilex-dev sources
     - rm -rf $CI_PROJECT_DIR/../opensilex-dev
