@@ -57,21 +57,6 @@ variables:
 .build:instance: &build_template_with_opensilex
   <<: *cache_dependencies
   before_script:
-    # clone original opensilex-dev sources
-    - mkdir -p $CI_PROJECT_DIR/../opensilex-dev
-    - cd $CI_PROJECT_DIR/../opensilex-dev
-    - git init
-    # TODO: ensure to load same commit as used to generate opensilex-dev artifact
-    - git pull https://gitlab-ci-token:${CI_JOB_TOKEN}@forgemia.inra.fr/OpenSILEX/opensilex-dev.git
-    - cd phis-ws
-    - git init
-    # TODO: ensure to load same commit as used to generate phisws artifact
-    - git pull https://gitlab-ci-token:${CI_JOB_TOKEN}@forgemia.inra.fr/OpenSILEX/phis-ws.git modularity
-    - cp -rf $CI_PROJECT_DIR/../opensilex-dev/* $CI_PROJECT_DIR/..
-    - cd $CI_PROJECT_DIR/..
-    # Initialize opensilex-dev sources for module compilation
-    - mvn install -Pfor-module
-        
     # download built artifacts from opensilex-dev
     - cd $CI_PROJECT_DIR/.. 
     - rm -rf $REVISION
@@ -94,6 +79,21 @@ variables:
     - mvn install:install-file "-Dfile=./opensilex-front-tests.jar" "-DpomFile=./opensilex-front-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
     # install phis tests
     - mvn install:install-file "-Dfile=./phis-tests.jar" "-DpomFile=./phis-pom.xml" "-Dclassifier=tests" "-Dversion=$REVISION"
+    
+    # clone original opensilex-dev sources
+    - mkdir -p $CI_PROJECT_DIR/../opensilex-dev
+    - cd $CI_PROJECT_DIR/../opensilex-dev
+    - git init
+    # TODO: ensure to load same commit as used to generate opensilex-dev artifact
+    - git pull https://gitlab-ci-token:${CI_JOB_TOKEN}@forgemia.inra.fr/OpenSILEX/opensilex-dev.git
+    - cd phis-ws
+    - git init
+    # TODO: ensure to load same commit as used to generate phisws artifact
+    - git pull https://gitlab-ci-token:${CI_JOB_TOKEN}@forgemia.inra.fr/OpenSILEX/phis-ws.git modularity
+    - cp -rf $CI_PROJECT_DIR/../opensilex-dev/* $CI_PROJECT_DIR/..
+    - cd $CI_PROJECT_DIR/..
+    # Initialize opensilex-dev sources for module compilation
+    - mvn install -Pfor-module
   stage: build
   image: maven:$MVN_VERSION-jdk-$JAVA_VERSION
   except:
