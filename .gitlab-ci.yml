@@ -44,7 +44,6 @@ variables:
 .build:instance: &build_template_with_opensilex
   <<: *cache_dependencies
   before_script:
-    - apt update && apt install rsync
     - shopt -s extglob
     - cd $CI_PROJECT_DIR/..
     - rm -rf $REVISION
