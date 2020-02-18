@@ -21,6 +21,7 @@ variables:
  YARN_CACHE_FOLDER: "$CI_PROJECT_DIR/cache_yarn"
  NODE_CACHE: "$CI_PROJECT_DIR/opensilex-dev/.node"
  EMBDED_MONGO_CACHE: "/root/.embedmongo/"
+ MODULE_ID: "inrae-sixtine"
 
 ########################
 ##  CACHE TEMPLATE
@@ -44,36 +45,35 @@ variables:
 .build:instance: &build_template_with_opensilex
   <<: *cache_dependencies
   before_script:
-    # enable extended pattern for mv command
+    # Enable extended pattern for mv command
     - shopt -s extglob
-
-    # download latest artifact from opensilex-dev
+    # Download and unzip latest artifact from opensilex-dev
     - cd $CI_PROJECT_DIR
     - rm -rf $REVISION
     - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "https://forgemia.inra.fr/api/v4/projects/1675/jobs/artifacts/master/download?job=opensilex:build"'
     - unzip -o artifacts.zip
-    
-    # clone original opensilex-dev sources
+    # Clone original opensilex-dev sources
     - cd $CI_PROJECT_DIR
     - mkdir -p $CI_PROJECT_DIR/opensilex-dev
-    
-    # Ensure to load same commit as used to generate opensilex-dev artifact
     - cd opensilex-dev
     - git init
     - git pull https://gitlab-ci-token:${CI_JOB_TOKEN}@forgemia.inra.fr/OpenSILEX/opensilex-dev.git
+    # Ensure to load same commit as used to generate opensilex-dev artifact
     - |
       if [ ! -z "$COMMIT_SHA_OPENSILEX_DEV" ]; then
         git checkout $COMMIT_SHA_OPENSILEX_DEV
       fi
-    # TODO remove phis dependency
     - cd phis-ws
     - git init
     - git pull https://gitlab-ci-token:${CI_JOB_TOKEN}@forgemia.inra.fr/OpenSILEX/phis-ws.git modularity
-
-    # build opensilex-dev for module compilation
+    # Ensure to load same commit as used to generate phis artifact
+    - |
+      if [ ! -z "$COMMIT_SHA_PHIS" ]; then
+        git checkout $COMMIT_SHA_PHIS
+      fi  
+    # Build opensilex-dev for module compilation
     - cd $CI_PROJECT_DIR/opensilex-dev
     - mvn clean install $MAVEN_CLI_OPTS -Pfor-module -Drevision=$REVISION
-    - cd $CI_PROJECT_DIR
   stage: build
   image: maven:$MVN_VERSION-jdk-$JAVA_VERSION
   except:
@@ -87,16 +87,26 @@ sixtine:build:
   <<: *build_template_with_opensilex
   script:
     # Create module folder if not exists
-    - mkdir -p $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine
-    - cd $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine
-    # Remove everything but node_module folder
+    - mkdir -p $CI_PROJECT_DIR/opensilex-dev/$MODULE_ID
+    # Remove everything in module folder except "node_modules" folder
+    - cd $CI_PROJECT_DIR/opensilex-dev/$MODULE_ID
     - rm -rf !(node_modules)
+    # Copy all module project sources into opensilex-dev folder
     - cd $CI_PROJECT_DIR
-#    - mv $CI_PROJECT_DIR/../tmp/* $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine
-    - mv !(.m2|cache_yarn|opensilex-dev|$REVISION) $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine
-    - cd $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine
+    - mv !(.m2|cache_yarn|opensilex-dev|$REVISION) $CI_PROJECT_DIR/opensilex-dev/$MODULE_ID
+    # Build module inside openxilex-dev directory structure
+    - cd $CI_PROJECT_DIR/opensilex-dev/$MODULE_ID
     - mvn install $MAVEN_CLI_OPTS -Drevision=$REVISION
-    - mv $CI_PROJECT_DIR/opensilex-dev/inrae-sixtine/target/inrae-sixtine-$REVISION.jar $CI_PROJECT_DIR/$REVISION/modules/inrae-sixtine.jar
+    # Copy generated JAR module into opensilex-dev artifact "modules" folder
+    - mv $CI_PROJECT_DIR/opensilex-dev/$MODULE_ID/target/$MODULE_ID-$REVISION.jar $CI_PROJECT_DIR/$REVISION/modules/$MODULE_ID.jar
   artifacts:
     paths:
       - $CI_PROJECT_DIR/$REVISION
+      
+sixtine:deploy:test:
+  stage: deploy
+  image: curlimages/curl
+  script:
+    - curl --request POST --form "token=$CI_JOB_TOKEN" --form "ref=master" --form "variables[COMMIT_SHA_OPENSILEX_DEV]=$CI_COMMIT_SHA" --form "variables[COMMIT_SHA_PHIS]=$COMMIT_SHA_PHIS" https://forgemia.inra.fr/api/v4/projects/1757/trigger/pipeline
+  needs: 
+    - job: "sixtine:build"
