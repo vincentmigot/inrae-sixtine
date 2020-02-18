@@ -103,10 +103,10 @@ sixtine:build:
     paths:
       - $CI_PROJECT_DIR/$REVISION
       
-sixtine:deploy:test:
+trigger:sixtine:deploy:test:
   stage: deploy
   image: curlimages/curl
   script:
-    - curl --request POST --form "token=$CI_JOB_TOKEN" --form "ref=master" --form "variables[COMMIT_SHA_OPENSILEX_DEV]=$CI_COMMIT_SHA" --form "variables[COMMIT_SHA_PHIS]=$COMMIT_SHA_PHIS" https://forgemia.inra.fr/api/v4/projects/1757/trigger/pipeline
+    - curl --request POST --form "token=$CI_JOB_TOKEN" --form "ref=master" --form "variables[COMMIT_SHA_OPENSILEX_DEV]=$COMMIT_SHA_OPENSILEX_DEV" --form "variables[COMMIT_SHA_PHIS]=$COMMIT_SHA_PHIS" https://forgemia.inra.fr/api/v4/projects/403/trigger/pipeline
   needs: 
     - job: "sixtine:build"
