@@ -12,4 +12,5 @@ import org.opensilex.OpenSilexModule;
  */
 public class SixtineModule extends OpenSilexModule {
 
+//    install
 }

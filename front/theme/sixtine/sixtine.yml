@@ -1,7 +1,14 @@
+extend: opensilex-front#phis
+
 stylesheets:
     - variables.scss
     - global.scss
     - hamburgers.css
+
+excludes:
+    - _auth.scss
+    - _main.scss
+    - main.css
 
 fonts:
     - family: Eras Light ITC

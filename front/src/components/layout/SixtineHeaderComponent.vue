@@ -6,11 +6,29 @@
         <div class="app-title">Sixtine</div>
       </router-link>
     </div>
-    <div class="app-logout">
-      <a href="#" @click.prevent="logout()">
-        <span>{{$t('component.common.logout')}}</span>&nbsp;
-        <font-awesome-icon icon="power-off" size="lg" />
-      </a>
+
+    <div class="app-actions">
+      <div class="language-selector">
+        <b-dropdown variant="link" size="lg" right>
+          <template v-slot:button-content>
+            <div class="language-selector-button">
+              <span class="action-label">{{ $t('component.header.language.' + language) }}</span>&nbsp;
+              <i class="icon ik ik-globe"></i>
+            </div>
+          </template>
+
+          <b-dropdown-item
+            v-for="item in languages"
+            :key="`language-${item}`"
+            href="#"
+            @click.prevent="setLanguage(item)"
+          >{{ $t('component.header.language.' + item) }}</b-dropdown-item>
+        </b-dropdown>
+      </div>
+      <b-button class="app-header-btn" variant="link" size="lg" @click.prevent="logout()">
+        <span class="action-label">{{$t('component.common.logout')}}</span>&nbsp;
+        <font-awesome-icon icon="power-off" />
+      </b-button>
     </div>
   </div>
 </template>
@@ -47,12 +65,14 @@ export default class SixtineHeaderComponent extends DefaultHeaderComponent {}
   text-align: left;
 }
 
-.app-logout {
+.app-actions {
   text-align: right;
+  display: flex;
+  flex: 1;
 }
 
-.app-logout > a {
-  font-size: 24px;
+.action-label {
+  font-size: 20x;
 }
 
 .app-logo > a > img {
@@ -66,8 +86,30 @@ export default class SixtineHeaderComponent extends DefaultHeaderComponent {}
   display: inline-block;
 }
 
-@media (max-width: 480px) {
-  .app-logout > a > span {
+.language-selector {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.language-selector-button {
+  display: inline;
+}
+
+.logout {
+  font-size: 20px;
+}
+
+.action-logout-icon,
+.action-logout-label {
+  vertical-align: middle;
+}
+
+.action-logout-icon {
+  height: 21px;
+}
+
+@media (max-width: 768px) {
+  .app-actions span.action-label {
     display: none;
   }
 }
