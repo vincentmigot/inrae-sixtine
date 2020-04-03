@@ -5,12 +5,28 @@
 //******************************************************************************
 package fr.inrae.sixtine;
 
+import java.net.URI;
+import java.util.List;
+import org.apache.jena.riot.Lang;
 import org.opensilex.OpenSilexModule;
+import org.opensilex.sparql.extensions.OntologyFileDefinition;
+import org.opensilex.sparql.extensions.SPARQLExtension;
 
 /**
  * Sixtine module implementation
  */
-public class SixtineModule extends OpenSilexModule {
+public class SixtineModule extends OpenSilexModule implements SPARQLExtension {
 
-//    install
+    @Override
+    public List<OntologyFileDefinition> getOntologiesFiles() throws Exception {
+        List<OntologyFileDefinition> list = SPARQLExtension.super.getOntologiesFiles();
+        list.add(new OntologyFileDefinition(
+                "https://sixtine.inrae.fr/ontology#",
+                "ontologies/inrae-sixtine.owl",
+                Lang.RDFXML,
+                "inrae-sixtine"
+        ));
+        return list;
+    }
+
 }
