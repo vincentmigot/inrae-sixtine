@@ -1,4 +1,4 @@
-/// <reference path="../../../opensilex-rest/front/types/opensilex-rest.d.ts" />
+/// <reference path="../../../opensilex-security/front/types/opensilex-security.d.ts" />
 import SixtineLoginComponent from "./components/layout/SixtineLoginComponent.vue";
 import SixtineFooterComponent from "./components/layout/SixtineFooterComponent.vue";
 import SixtineMenuComponent from "./components/layout/SixtineMenuComponent.vue";
@@ -17,6 +17,6 @@ export default {
     },
     lang: {
         "fr": require("./lang/sixtine-fr.json"),
-        "en-US": require("./lang/sixtine-en-US.json"),
+        "en": require("./lang/sixtine-en.json"),
     }
 };

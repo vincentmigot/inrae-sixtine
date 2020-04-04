@@ -5,7 +5,6 @@
 //******************************************************************************
 package fr.inrae.sixtine;
 
-import java.net.URI;
 import java.util.List;
 import org.apache.jena.riot.Lang;
 import org.opensilex.OpenSilexModule;
