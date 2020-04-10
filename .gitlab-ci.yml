@@ -63,14 +63,6 @@ variables:
       if [ ! -z "$COMMIT_SHA_OPENSILEX_DEV" ]; then
         git checkout $COMMIT_SHA_OPENSILEX_DEV
       fi
-    - cd phis-ws
-    - git init
-    - git pull https://gitlab-ci-token:${CI_JOB_TOKEN}@forgemia.inra.fr/OpenSILEX/phis-ws.git modularity
-    # Ensure to load same commit as used to generate phis artifact
-    - |
-      if [ ! -z "$COMMIT_SHA_PHIS" ]; then
-        git checkout $COMMIT_SHA_PHIS
-      fi  
     # Build opensilex-dev for module compilation
     - cd $CI_PROJECT_DIR/opensilex-dev
     - mvn clean install $MAVEN_CLI_OPTS -Pfor-module -Drevision=$REVISION
@@ -107,6 +99,6 @@ trigger:sixtine:deploy:test:
   stage: deploy
   image: curlimages/curl
   script:
-    - curl --request POST --form "variables[DEPLOY]=sixtine-test" --form "token=$CI_JOB_TOKEN" --form "ref=master" --form "variables[COMMIT_SHA_OPENSILEX_DEV]=$COMMIT_SHA_OPENSILEX_DEV" --form "variables[COMMIT_SHA_PHIS]=$COMMIT_SHA_PHIS" https://forgemia.inra.fr/api/v4/projects/403/trigger/pipeline
+    - curl --request POST --form "variables[DEPLOY]=sixtine-test" --form "token=$CI_JOB_TOKEN" --form "ref=master" --form "variables[COMMIT_SHA_OPENSILEX_DEV]=$COMMIT_SHA_OPENSILEX_DEV" https://forgemia.inra.fr/api/v4/projects/403/trigger/pipeline
   needs: 
     - job: "sixtine:build"
