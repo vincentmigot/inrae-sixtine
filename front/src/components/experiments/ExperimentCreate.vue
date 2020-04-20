@@ -49,13 +49,6 @@
   </b-modal>
 </template>
 
-
-
-
-    </form-wizard>
-  </b-modal>
-</template>
-
 <script lang="ts">
 import { Component, Ref, Prop } from "vue-property-decorator";
 import Vue from "vue";

@@ -28,5 +28,5 @@ iconClassesRDF:
     "inrae-sixtine:Greenhouse": solar-panel
     "inrae-sixtine:Plot": seedling
 
-componentOverrides:
-    opensilex-ExperimentList: inrae-sixtine-ExperimentView
+# componentOverrides:
+#     opensilex-ExperimentList: inrae-sixtine-ExperimentView
