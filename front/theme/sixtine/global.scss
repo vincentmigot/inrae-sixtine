@@ -1,5 +1,6 @@
 body {
     font-size: 14px!important;
+   
 }
 
 #page-wrapper {
@@ -9,6 +10,9 @@ body {
     margin: auto;
 }
 
+#main-content {
+    background-color: rgb(249, 249, 250);
+}
 
 /* Style the header */
 
@@ -117,4 +121,114 @@ a:active {
 
 .btn.btn-link:hover {
     border: 1px solid black;
+}
+
+/*************************************
+* CARDS
+*************************************/
+.card .card-body .static-field {
+    margin-bottom: 0.8em;
+    font-size: 1.1em;
+}
+
+.card .card-body .static-field .static-field-key {
+    display: inline-flex;
+    min-width: 100px;
+    font-weight: bold;
+}
+
+.card .card-body .static-field .static-field-text {
+    text-align: justify;
+    line-height: 1.7em;
+}
+
+.card .card-body .static-field .static-field-list {
+    list-style-type: none;
+    padding-left: 100px;
+}
+
+.card .card-header h3 i.ik {
+    font-size: 1.5em;
+    margin-right: 0.5em;
+    vertical-align: bottom;
+}
+
+.card .card-header .badge {
+    margin-top: 6px;
+    font-size: 1.1em;
+    margin-right: 1em;
+}
+
+.card .card-header .card-header-right .btn {
+    margin-top: 6px;
+}
+
+.card .card-block .dashboard-item a {
+    display: inline-block;
+    height: 40px;
+    width: 100%;
+    font-size: 15px;
+}
+
+.card .card-block .dashboard-item-label {
+    line-height: 40px;
+    display: inline-block;
+}
+
+.card .card-block .dashboard-item-icon {
+    float: right;
+    margin-top: 8px;
+    height: 24px;
+    width: 24px;
+    text-align: center;
+}
+
+.card .card-block .dashboard-item:hover {
+    background: #f3f3f3;
+    border-radius: 10px;
+}
+
+/*************************************
+* LINKS
+*************************************/
+
+.main-content .table a.row-link, .card .card-body .static-field a:not(.inline-action-btn) {
+    color: #3C76F4;
+}
+
+.main-content .table a.row-link:hover, .card .card-body .static-field a:hover:not(.inline-action-btn) {
+    text-decoration: underline;
+    color: inherit;
+}
+
+.card .card-header .card-options a.view-nav {
+    width: inherit;
+    color: #3C76F4;
+    font-size: 1.1em;
+}
+
+.card .card-header .card-options a.view-nav:hover {
+    color: inherit;
+    text-decoration: underline;
+}
+
+.card .card-header .card-options a.btn {
+    border-radius: 0.25rem;
+}
+
+.card .card-header .card-options a.btn-outline-primary {
+    color: #007bff;
+}
+
+.card .card-header .card-options a.btn-outline-primary:hover {
+    color: #fff;
+}
+
+.data-filter .filter-action .ik {
+    margin-right: 0;
+    font-size: 14px;
+}
+
+.data-filter .filter-action {
+    padding-top: 8px;
 }

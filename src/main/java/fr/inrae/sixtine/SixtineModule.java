@@ -8,6 +8,8 @@ package fr.inrae.sixtine;
 import java.util.List;
 import org.apache.jena.riot.Lang;
 import org.opensilex.OpenSilexModule;
+import org.opensilex.sparql.SPARQLConfig;
+import org.opensilex.sparql.SPARQLModule;
 import org.opensilex.sparql.extensions.OntologyFileDefinition;
 import org.opensilex.sparql.extensions.SPARQLExtension;
 
@@ -25,6 +27,15 @@ public class SixtineModule extends OpenSilexModule implements SPARQLExtension {
                 Lang.RDFXML,
                 "inrae-sixtine"
         ));
+
+        SPARQLConfig sparqlConfig = getOpenSilex().getModuleConfig(SPARQLModule.class, SPARQLConfig.class);
+        list.add(new OntologyFileDefinition(
+                sparqlConfig.baseURI() + "species",
+                "ontologies/species.ttl",
+                Lang.TTL,
+                sparqlConfig.baseURIAlias() + "-species"
+        ));
+
         return list;
     }
 

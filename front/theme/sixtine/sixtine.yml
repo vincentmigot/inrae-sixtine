@@ -9,7 +9,7 @@ excludes:
     - _auth.scss
     - _main.scss
     - main.css
-
+    
 fonts:
     - family: Eras Light ITC
       style: normal
@@ -25,3 +25,8 @@ fonts:
 iconClassesRDF:
     "inrae-sixtine:ExperimentalUnit": building
     "inrae-sixtine:ExperimentalSite": home
+    "inrae-sixtine:Greenhouse": solar-panel
+    "inrae-sixtine:Plot": seedling
+
+componentOverrides:
+    opensilex-ExperimentList: inrae-sixtine-ExperimentView

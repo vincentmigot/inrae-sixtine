@@ -17,18 +17,20 @@
       <nav id="main-menu-navigation" class="navigation-main">
         <div li v-for="item in menu" v-bind:key="item.id" class="nav-item">
           <span v-if="!item.route">
-            <i v-if="item.icon" class="ik" v-bind:class="item.icon"></i>
+            <i class="ik" v-bind:class="getIcon(item)"></i>&nbsp;
             <span>{{ $t(item.label) }}</span>
           </span>
           <router-link v-else :to="item.route.path">
-            <i v-if="item.icon" class="ik" v-bind:class="item.icon"></i>
+            <i class="ik" v-bind:class="getIcon(item)"></i>&nbsp;
             <span>{{ $t(item.label) }}</span>
           </router-link>
           <div v-for="itemChild in item.children" v-bind:key="itemChild.id" class="submenu-content">
             <span v-if="!itemChild.route">
+              <i class="ik" v-bind:class="getIcon(itemChild)"></i>&nbsp;
               <span>{{ $t(itemChild.label) }}</span>
             </span>
             <router-link v-else :to="itemChild.route.path">
+              <i class="ik" v-bind:class="getIcon(itemChild)"></i>&nbsp;
               <span>{{ $t(itemChild.label) }}</span>
             </router-link>
           </div>
@@ -57,11 +59,17 @@ export default class SixtineMenuComponent extends DefaultMenuComponent {
   }
 
   handleResize() {
-    const minSize = 480;
-    if (document.body.clientWidth <= minSize && (this.width == null || this.width > minSize)) {
+    const minSize = 768;
+    if (
+      document.body.clientWidth <= minSize &&
+      (this.width == null || this.width > minSize)
+    ) {
       this.width = document.body.clientWidth;
       this.$store.commit("hideMenu");
-    } else if (document.body.clientWidth > minSize && (this.width == null || this.width <= minSize)) {
+    } else if (
+      document.body.clientWidth > minSize &&
+      (this.width == null || this.width <= minSize)
+    ) {
       this.width = document.body.clientWidth;
       this.$store.commit("showMenu");
     }
