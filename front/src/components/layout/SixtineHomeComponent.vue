@@ -2,7 +2,7 @@
   <div class="main-content">
     <div class="container-fluid">
       <div class="center">
-        <img v-bind:src="$opensilex.getResourceURI('images/logo-sixtine.png')" />
+        <img v-bind:src="$opensilex.getResourceURI('images/logo-sixtine.png')" alt="logo-sixtine" />
         <h2>{{$t('sixtine.welcome-message')}} <br/><br/> {{$t('sixtine.title')}}</h2>
       </div>
     </div>

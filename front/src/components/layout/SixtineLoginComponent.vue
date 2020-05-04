@@ -3,7 +3,7 @@
     <ValidationObserver ref="validatorRef">
       <b-form @submit.prevent="onLogin" class="fullmodal-form">
         <div class="login-header">
-          <img v-bind:src="$opensilex.getResourceURI('images/logo-sixtine.png')" />
+          <img v-bind:src="$opensilex.getResourceURI('images/logo-sixtine.png')" alt="sixtine-logo" />
           <h2>{{$t('sixtine.title')}}</h2>
         </div>
 

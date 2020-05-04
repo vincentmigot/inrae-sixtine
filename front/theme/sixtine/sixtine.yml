@@ -23,10 +23,7 @@ fonts:
         woff2: fonts/eras-light/eras-light.woff2
         
 iconClassesRDF:
-    "inrae-sixtine:ExperimentalUnit": building
-    "inrae-sixtine:ExperimentalSite": home
-    "inrae-sixtine:Greenhouse": solar-panel
-    "inrae-sixtine:Plot": seedling
-
-# componentOverrides:
-#     opensilex-ExperimentList: inrae-sixtine-ExperimentView
+    "inrae-sixtine:ExperimentalUnit": fa#building
+    "inrae-sixtine:ExperimentalSite": fa#home
+    "inrae-sixtine:Greenhouse": fa#solar-panel
+    "inrae-sixtine:Plot": fa#seedling
