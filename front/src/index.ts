@@ -1,6 +1,5 @@
 /// <reference path="../../../opensilex-security/front/types/opensilex-security.d.ts" />
 /// <reference path="../../../opensilex-core/front/types/opensilex-core.d.ts" />
-import { ApiServiceBinder } from './lib';
 import SixtineLoginComponent from "./components/layout/SixtineLoginComponent.vue";
 import SixtineFooterComponent from "./components/layout/SixtineFooterComponent.vue";
 import SixtineMenuComponent from "./components/layout/SixtineMenuComponent.vue";
@@ -9,7 +8,6 @@ import SixtineHomeComponent from "./components/layout/SixtineHomeComponent.vue";
 
 export default {
     install(Vue, options) {
-        ApiServiceBinder.with(Vue.$opensilex.getServiceContainer());
     },
     components: {
         "inrae-sixtine-SixtineHomeComponent": SixtineHomeComponent,
