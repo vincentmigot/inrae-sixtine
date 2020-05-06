@@ -43,10 +43,12 @@
 <script lang="ts">
 import { Component } from "vue-property-decorator";
 import Vue from "vue";
-import DefaultMenuComponent from "../../../../../opensilex-front/front/src/components/layout/DefaultMenuComponent.vue";
 
 @Component
-export default class SixtineMenuComponent extends DefaultMenuComponent {
+export default class SixtineMenuComponent extends Vue {
+  $store: any;
+  $t: any;
+
   width;
 
   created() {
@@ -73,6 +75,44 @@ export default class SixtineMenuComponent extends DefaultMenuComponent {
       this.width = document.body.clientWidth;
       this.$store.commit("showMenu");
     }
+  }
+
+  $route: any;
+
+  get menu(): Array<any> {
+    return this.$store.state.menu;
+  }
+
+  get user() {
+    return this.$store.state.user;
+  }
+
+  get menuVisible(): boolean {
+    return this.$store.state.menuVisible;
+  }
+
+  toggleMenu(): void {
+    this.$store.commit("toggleMenu");
+  }
+
+  toogle(item: any, event: MouseEvent): void {
+    if (item.hasChildren()) {
+      console.info("toogle menu, old value = " + item.showChildren);
+      item.showChildren = !item.showChildren;
+    }
+  }
+
+  getIcon(item: any): string {
+    var code = "icon." + item.label;
+    var result = this.$t(code);
+    if (code != result) {
+      return result.toString();
+    }
+    return "ik-folder";
+  }
+
+  isActive(item: any): boolean {
+    return item.route && this.$route.path.indexOf(item.route.path) === 0;
   }
 }
 </script>

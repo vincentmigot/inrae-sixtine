@@ -54,11 +54,73 @@
 </template>
 
 <script lang="ts">
-import { Component } from "vue-property-decorator";
-import DefaultLoginComponent from "../../../../../opensilex-front/front/src/components/layout/DefaultLoginComponent.vue";
+import { Component, Ref } from "vue-property-decorator";
+import { TokenGetDTO } from "opensilex-security/index";
+import HttpResponse, {
+  OpenSilexResponse
+} from "opensilex-security/HttpResponse";
+import Vue from "vue";
 
 @Component
-export default class SixtineLoginComponent extends DefaultLoginComponent {}
+export default class SixtineLoginComponent extends Vue {
+  get form() {
+    return {
+      email: "",
+      password: ""
+    };
+  }
+
+  $store: any;
+  $t: any;
+  $router: any;
+
+  get user() {
+    return this.$store.state.user;
+  }
+
+  $opensilex: any;
+
+  static async asyncInit($opensilex) {
+    await $opensilex.loadService("opensilex-security.AuthenticationService");
+  }
+
+  @Ref("validatorRef") readonly validatorRef!: any;
+
+  forceRefresh = false;
+  onLogin() {
+    let validatorRef: any = this.validatorRef;
+    validatorRef.validate().then(isValid => {
+      if (isValid) {
+        this.$opensilex.showLoader();
+        this.$opensilex
+          .getService("opensilex-security.AuthenticationService")
+          .authenticate({
+            identifier: this.form.email,
+            password: this.form.password
+          })
+          .then((http: HttpResponse<OpenSilexResponse<TokenGetDTO>>) => {
+            let user = this.$opensilex.fromToken(http.response.result.token);
+            this.$opensilex.setCookieValue(user);
+            this.forceRefresh = true;
+            this.$store.commit("login", user);
+            this.$store.commit("refresh");
+          })
+          .catch(error => {
+            if (error.status == 403) {
+              console.error("Invalid credentials", error);
+              this.$opensilex.errorHandler(
+                error,
+                this.$t("component.login.errors.invalid-credentials")
+              );
+            } else {
+              this.$opensilex.errorHandler(error);
+            }
+            this.$opensilex.hideLoader();
+          });
+      }
+    });
+  }
+}
 </script>
 
 <style scoped lang="scss">

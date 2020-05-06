@@ -36,10 +36,41 @@
 <script lang="ts">
 import { Component } from "vue-property-decorator";
 import Vue from "vue";
-import DefaultHeaderComponent from "../../../../../opensilex-front/front/src/components/layout/DefaultHeaderComponent.vue";
 
 @Component
-export default class SixtineHeaderComponent extends DefaultHeaderComponent {}
+export default class SixtineHeaderComponent extends Vue {
+  $i18n: any;
+  $store: any;
+  
+  /**
+   * Return the current i18n language
+   */
+  get language() {
+    return this.$i18n.locale;
+  }
+
+  /**
+   * Return all available languages
+   */
+  get languages() {
+    return Object.keys(this.$i18n.messages);
+  }
+
+  /**
+   * Set the current i18n language
+   */
+  setLanguage(lang: string) {
+    this.$i18n.locale = lang;
+    this.$store.commit("lang", lang);
+  }
+
+  /**
+   * Logout the current connected user -> have to redirected to the login page
+   */
+  logout() {
+    this.$store.commit("logout");
+  }
+}
 </script>
 
 <style scoped lang="scss">
