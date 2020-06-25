@@ -59,8 +59,7 @@ main {
     margin-left: 3px;
 }
 
-a,
-a:visited {
+a {
     color: getVar(--linkColor);
 }
 

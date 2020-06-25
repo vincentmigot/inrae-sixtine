@@ -179,4 +179,13 @@ fieldset {
 .login-header > img {
   height: 140px;
 }
+
+.login-form-content .error-message {
+  top: 37px;
+}
+
+.login-form-content fieldset {
+  margin-bottom: 25px;
+}
+
 </style>
