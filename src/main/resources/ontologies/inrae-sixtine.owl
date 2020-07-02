@@ -1,36 +1,177 @@
-<?xml version="1.0" ?>
-<rdf:RDF xml:base="https://sixtine.inrae.fr/ontology" xmlns:oeso="http://www.opensilex.org/vocabulary/oeso#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:time="http://www.w3.org/2006/time#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<?xml version="1.0"?>
+<rdf:RDF xmlns="https://sixtine.inrae.fr/ontology#"
+     xml:base="https://sixtine.inrae.fr/ontology"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:oeso="http://www.opensilex.org/vocabulary/oeso#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:time="http://www.w3.org/2006/time#">
     <owl:Ontology rdf:about="https://sixtine.inrae.fr/ontology">
         <dc:creator>Vincent, Migot, Anne Tireau,Pascal Neveu (INRAE Montpellier)</dc:creator>
-        <owl:versionInfo>Version 1.0 (2020-04-01) created by INRAE</owl:versionInfo>
-        <rdfs:label xml:lang="en">OpenSILEX - Phenome</rdfs:label>
         <rdfs:comment>INRAE MISTEA
             Copyright © - INRAE - 2020
             This Ontology is licensed by CC 4.0 (http://creativecommons.org/licenses/by-sa/4.0/legalcode)</rdfs:comment>
+        <rdfs:label xml:lang="en">OpenSILEX - Phenome</rdfs:label>
+        <owl:versionInfo>Version 1.0 (2020-04-01) created by INRAE</owl:versionInfo>
     </owl:Ontology>
+    
 
-    <owl:Class rdf:about="https://sixtine.inrae.fr/ontology#ExperimentalUnit">
-        <rdfs:subClassOf rdf:resource="http://www.opensilex.org/vocabulary/oeso#Infrastructure" />
-        <rdfs:label xml:lang="fr">Unité expérimentale</rdfs:label>
-        <rdfs:label xml:lang="en">Experimental unit</rdfs:label>
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/creator -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/creator"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.opensilex.org/vocabulary/oeso#hasGermplasm -->
+
+    <owl:ObjectProperty rdf:about="http://www.opensilex.org/vocabulary/oeso#hasGermplasm"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.opensilex.org/vocabulary/oeso#Germplasm -->
+
+    <owl:Class rdf:about="http://www.opensilex.org/vocabulary/oeso#Germplasm"/>
+    
+
+
+    <!-- http://www.opensilex.org/vocabulary/oeso#Infrastructure -->
+
+    <owl:Class rdf:about="http://www.opensilex.org/vocabulary/oeso#Infrastructure"/>
+    
+
+
+    <!-- http://www.opensilex.org/vocabulary/oeso#InfrastructureFacility -->
+
+    <owl:Class rdf:about="http://www.opensilex.org/vocabulary/oeso#InfrastructureFacility">
+        <rdfs:subClassOf rdf:resource="http://www.opensilex.org/vocabulary/oeso#ScientificObject"/>
     </owl:Class>
+    
+
+
+    <!-- http://www.opensilex.org/vocabulary/oeso#ScientificObject -->
+
+    <owl:Class rdf:about="http://www.opensilex.org/vocabulary/oeso#ScientificObject"/>
+    
+
+
+    <!-- https://sixtine.inrae.fr/ontology#ExperimentalSite -->
 
     <owl:Class rdf:about="https://sixtine.inrae.fr/ontology#ExperimentalSite">
-        <rdfs:subClassOf rdf:resource="https://sixtine.inrae.fr/ontology#ExperimentalUnit" />
-        <rdfs:label xml:lang="fr">Site expérimental</rdfs:label>
+        <rdfs:subClassOf rdf:resource="https://sixtine.inrae.fr/ontology#ExperimentalUnit"/>
         <rdfs:label xml:lang="en">Experimental site</rdfs:label>
+        <rdfs:label xml:lang="fr">Site expérimental</rdfs:label>
     </owl:Class>
+    
+
+
+    <!-- https://sixtine.inrae.fr/ontology#ExperimentalUnit -->
+
+    <owl:Class rdf:about="https://sixtine.inrae.fr/ontology#ExperimentalUnit">
+        <rdfs:subClassOf rdf:resource="http://www.opensilex.org/vocabulary/oeso#Infrastructure"/>
+        <rdfs:label xml:lang="en">Experimental unit</rdfs:label>
+        <rdfs:label xml:lang="fr">Unité expérimentale</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://sixtine.inrae.fr/ontology#Greenhouse -->
 
     <owl:Class rdf:about="https://sixtine.inrae.fr/ontology#Greenhouse">
-        <rdfs:subClassOf rdf:resource="http://www.opensilex.org/vocabulary/oeso#InfrastructureFacility" />
-        <rdfs:label xml:lang="fr">Serre</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.opensilex.org/vocabulary/oeso#InfrastructureFacility"/>
         <rdfs:label xml:lang="en">Greenhouse</rdfs:label>
+        <rdfs:label xml:lang="fr">Serre</rdfs:label>
     </owl:Class>
+    
+
+
+    <!-- https://sixtine.inrae.fr/ontology#GrowthChamber -->
+
+    <owl:Class rdf:about="https://sixtine.inrae.fr/ontology#GrowthChamber">
+        <rdfs:subClassOf rdf:resource="http://www.opensilex.org/vocabulary/oeso#InfrastructureFacility"/>
+        <rdfs:label xml:lang="fr">Chambre de culture</rdfs:label>
+        <rdfs:label xml:lang="en">Growth chamber</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://sixtine.inrae.fr/ontology#Plant -->
+
+    <owl:Class rdf:about="https://sixtine.inrae.fr/ontology#Plant">
+        <rdfs:subClassOf rdf:resource="http://www.opensilex.org/vocabulary/oeso#ScientificObject"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.opensilex.org/vocabulary/oeso#hasGermplasm"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.opensilex.org/vocabulary/oeso#Germplasm"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en">Plant</rdfs:label>
+        <rdfs:label xml:lang="fr">Plante</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://sixtine.inrae.fr/ontology#PlantPart -->
+
+    <owl:Class rdf:about="https://sixtine.inrae.fr/ontology#PlantPart">
+        <rdfs:subClassOf rdf:resource="http://www.opensilex.org/vocabulary/oeso#ScientificObject"/>
+    </owl:Class>
+    
+
+
+    <!-- https://sixtine.inrae.fr/ontology#Plot -->
 
     <owl:Class rdf:about="https://sixtine.inrae.fr/ontology#Plot">
-        <rdfs:subClassOf rdf:resource="http://www.opensilex.org/vocabulary/oeso#InfrastructureFacility" />
+        <rdfs:subClassOf rdf:resource="http://www.opensilex.org/vocabulary/oeso#InfrastructureFacility"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.opensilex.org/vocabulary/oeso#hasGermplasm"/>
+                <owl:someValuesFrom rdf:resource="http://www.opensilex.org/vocabulary/oeso#Germplasm"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
         <rdfs:label xml:lang="fr">Parcelle</rdfs:label>
         <rdfs:label xml:lang="en">Plot</rdfs:label>
     </owl:Class>
-
 </rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+
