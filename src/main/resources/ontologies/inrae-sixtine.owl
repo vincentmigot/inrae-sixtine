@@ -8,8 +8,11 @@
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:oeso="http://www.opensilex.org/vocabulary/oeso#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     xmlns:time="http://www.w3.org/2006/time#">
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+     xmlns:time="http://www.w3.org/2006/time#"
+     xmlns:terms="http://purl.org/dc/terms/">
     <owl:Ontology rdf:about="https://sixtine.inrae.fr/ontology">
+        <owl:imports rdf:resource="http://www.opensilex.org/vocabulary/oeso"/>
         <dc:creator>Vincent, Migot, Anne Tireau,Pascal Neveu (INRAE Montpellier)</dc:creator>
         <rdfs:comment>INRAE MISTEA
             Copyright © - INRAE - 2020
