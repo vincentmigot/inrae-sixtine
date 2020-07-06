@@ -53,7 +53,10 @@
 
     <!-- http://www.opensilex.org/vocabulary/oeso#hasGermplasm -->
 
-    <owl:ObjectProperty rdf:about="http://www.opensilex.org/vocabulary/oeso#hasGermplasm"/>
+    <owl:ObjectProperty rdf:about="http://www.opensilex.org/vocabulary/oeso#hasGermplasm">
+        <rdfs:label xml:lang="en">Germplasm URI</rdfs:label>
+        <rdfs:label xml:lang="fr">URI du matériel génétique</rdfs:label>
+    </owl:ObjectProperty>
     
 
 
@@ -172,6 +175,24 @@
         <rdfs:label xml:lang="fr">Parcelle</rdfs:label>
         <rdfs:label xml:lang="en">Plot</rdfs:label>
     </owl:Class>
+    <rdf:Description>
+        <rdfs:label></rdfs:label>
+    </rdf:Description>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotations
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description rdf:about="http://www.opensilex.org/vocabulary/oeso#isPartOf">
+        <rdfs:label xml:lang="en">Parent URI</rdfs:label>
+        <rdfs:label xml:lang="fr">URI du parent</rdfs:label>
+    </rdf:Description>
 </rdf:RDF>
 
 

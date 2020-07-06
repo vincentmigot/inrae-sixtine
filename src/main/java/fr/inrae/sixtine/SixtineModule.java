@@ -5,22 +5,13 @@
 //******************************************************************************
 package fr.inrae.sixtine;
 
-import java.net.URI;
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 import org.apache.jena.riot.Lang;
 import org.opensilex.OpenSilexModule;
-import org.opensilex.core.experiment.dal.ExperimentDAO;
-import org.opensilex.core.experiment.dal.ExperimentModel;
-import org.opensilex.core.infrastructure.dal.InfrastructureDAO;
-import org.opensilex.core.infrastructure.dal.InfrastructureFacilityModel;
-import org.opensilex.core.infrastructure.dal.InfrastructureModel;
 import org.opensilex.sparql.SPARQLConfig;
 import org.opensilex.sparql.SPARQLModule;
 import org.opensilex.sparql.extensions.OntologyFileDefinition;
 import org.opensilex.sparql.extensions.SPARQLExtension;
-import org.opensilex.sparql.service.SPARQLService;
 
 /**
  * Sixtine module implementation

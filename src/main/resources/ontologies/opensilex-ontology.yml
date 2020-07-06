@@ -1,0 +1,5 @@
+inrae-sixtine:Plant:
+    oeso:hasGermplasm: 
+        label:
+            en: Species URI
+            fr: URI de l'espèce
