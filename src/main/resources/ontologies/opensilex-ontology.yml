@@ -1,3 +1,9 @@
+oeso:ScientificObject:
+    properties:
+        oeso:isPartOf: 
+            label:
+                en: Parent URI
+                fr: URI du parent
 inrae-sixtine:Plant:
     properties:
         oeso:hasGermplasm: 

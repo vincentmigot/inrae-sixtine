@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <rdf:RDF xmlns="https://sixtine.inrae.fr/ontology#"
-     xml:base="https://sixtine.inrae.fr/ontology"
-     xmlns:dc="http://purl.org/dc/elements/1.1/"
-     xmlns:owl="http://www.w3.org/2002/07/owl#"
-     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-     xmlns:xml="http://www.w3.org/XML/1998/namespace"
-     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-     xmlns:oeso="http://www.opensilex.org/vocabulary/oeso#"
-     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
-     xmlns:time="http://www.w3.org/2006/time#"
-     xmlns:terms="http://purl.org/dc/terms/">
+         xml:base="https://sixtine.inrae.fr/ontology"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:xml="http://www.w3.org/XML/1998/namespace"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:oeso="http://www.opensilex.org/vocabulary/oeso#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+         xmlns:time="http://www.w3.org/2006/time#"
+         xmlns:terms="http://purl.org/dc/terms/">
     <owl:Ontology rdf:about="https://sixtine.inrae.fr/ontology">
         <owl:imports rdf:resource="http://www.opensilex.org/vocabulary/oeso"/>
         <dc:creator>Vincent, Migot, Anne Tireau,Pascal Neveu (INRAE Montpellier)</dc:creator>
@@ -24,12 +24,12 @@
 
 
     <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Annotation properties
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
+   ///////////////////////////////////////////////////////////////////////////////////////
+   //
+   // Annotation properties
+   //
+   ///////////////////////////////////////////////////////////////////////////////////////
+    -->
 
     
 
@@ -41,12 +41,12 @@
 
 
     <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Object Properties
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
+   ///////////////////////////////////////////////////////////////////////////////////////
+   //
+   // Object Properties
+   //
+   ///////////////////////////////////////////////////////////////////////////////////////
+    -->
 
     
 
@@ -54,19 +54,19 @@
     <!-- http://www.opensilex.org/vocabulary/oeso#hasGermplasm -->
 
     <owl:ObjectProperty rdf:about="http://www.opensilex.org/vocabulary/oeso#hasGermplasm">
-        <rdfs:label xml:lang="en">Germplasm URI</rdfs:label>
-        <rdfs:label xml:lang="fr">URI du matériel génétique</rdfs:label>
+        <rdfs:label xml:lang="en">Germplasm</rdfs:label>
+        <rdfs:label xml:lang="fr">Matériel génétique</rdfs:label>
     </owl:ObjectProperty>
     
 
 
     <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Classes
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
+   ///////////////////////////////////////////////////////////////////////////////////////
+   //
+   // Classes
+   //
+   ///////////////////////////////////////////////////////////////////////////////////////
+    -->
 
     
 
@@ -83,20 +83,6 @@
     
 
 
-    <!-- http://www.opensilex.org/vocabulary/oeso#InfrastructureFacility -->
-
-    <owl:Class rdf:about="http://www.opensilex.org/vocabulary/oeso#InfrastructureFacility">
-        <rdfs:subClassOf rdf:resource="http://www.opensilex.org/vocabulary/oeso#ScientificObject"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opensilex.org/vocabulary/oeso#ScientificObject -->
-
-    <owl:Class rdf:about="http://www.opensilex.org/vocabulary/oeso#ScientificObject"/>
-    
-
-
     <!-- https://sixtine.inrae.fr/ontology#ExperimentalSite -->
 
     <owl:Class rdf:about="https://sixtine.inrae.fr/ontology#ExperimentalSite">
@@ -104,8 +90,6 @@
         <rdfs:label xml:lang="en">Experimental site</rdfs:label>
         <rdfs:label xml:lang="fr">Site expérimental</rdfs:label>
     </owl:Class>
-    
-
 
     <!-- https://sixtine.inrae.fr/ontology#ExperimentalUnit -->
 
@@ -156,43 +140,36 @@
 
     <!-- https://sixtine.inrae.fr/ontology#PlantPart -->
 
-    <owl:Class rdf:about="https://sixtine.inrae.fr/ontology#PlantPart">
+    <!--    <owl:Class rdf:about="https://sixtine.inrae.fr/ontology#PlantPart">
         <rdfs:subClassOf rdf:resource="http://www.opensilex.org/vocabulary/oeso#ScientificObject"/>
-    </owl:Class>
+    </owl:Class>-->
     
 
 
+    <owl:DatatypeProperty rdf:about="https://sixtine.inrae.fr/ontology#hasAreaHA">
+        <rdfs:label xml:lang="en">Area (ha)</rdfs:label>
+        <rdfs:label xml:lang="fr">Superficie (ha)</rdfs:label>
+    </owl:DatatypeProperty>
+    
     <!-- https://sixtine.inrae.fr/ontology#Plot -->
 
     <owl:Class rdf:about="https://sixtine.inrae.fr/ontology#Plot">
         <rdfs:subClassOf rdf:resource="http://www.opensilex.org/vocabulary/oeso#InfrastructureFacility"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.opensilex.org/vocabulary/oeso#hasGermplasm"/>
-                <owl:someValuesFrom rdf:resource="http://www.opensilex.org/vocabulary/oeso#Germplasm"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
         <rdfs:label xml:lang="fr">Parcelle</rdfs:label>
         <rdfs:label xml:lang="en">Plot</rdfs:label>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://sixtine.inrae.fr/ontology#hasAreaHA"/>
+                <owl:maxQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxQualifiedCardinality>
+                <owl:onDataRange rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
     </owl:Class>
+    
     <rdf:Description>
         <rdfs:label></rdfs:label>
     </rdf:Description>
     
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Annotations
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    <rdf:Description rdf:about="http://www.opensilex.org/vocabulary/oeso#isPartOf">
-        <rdfs:label xml:lang="en">Parent URI</rdfs:label>
-        <rdfs:label xml:lang="fr">URI du parent</rdfs:label>
-    </rdf:Description>
 </rdf:RDF>
 
 
