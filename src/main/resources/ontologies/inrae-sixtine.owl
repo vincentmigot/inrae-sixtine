@@ -51,14 +51,6 @@
     
 
 
-    <!-- http://www.opensilex.org/vocabulary/oeso#hasGermplasm -->
-
-    <owl:ObjectProperty rdf:about="http://www.opensilex.org/vocabulary/oeso#hasGermplasm">
-        <rdfs:label xml:lang="en">Germplasm</rdfs:label>
-        <rdfs:label xml:lang="fr">Matériel génétique</rdfs:label>
-    </owl:ObjectProperty>
-    
-
 
     <!-- 
    ///////////////////////////////////////////////////////////////////////////////////////
